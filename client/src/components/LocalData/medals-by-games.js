@@ -1,0 +1,68 @@
+const data = [
+  {
+    country: 'US',
+    year: '1976',
+    gold: 36,
+    silver: 63,
+    bronze: 56,
+    total: 155,
+  },
+  {
+    country: 'US',
+    year: '1984',
+    gold: 50,
+    silver: 168,
+    bronze: 115,
+    total: 333,
+  },
+  {
+    country: 'US',
+    year: '1988',
+    gold: 52,
+    silver: 77,
+    bronze: 64,
+    total: 193,
+  },
+  {
+    country: 'US',
+    year: '1992',
+    gold: 85,
+    silver: 89,
+    bronze: 50,
+    total: 224,
+  },
+  {
+    country: 'US',
+    year: '1996',
+    gold: 52,
+    silver: 160,
+    bronze: 48,
+    total: 260,
+  },
+  {
+    country: 'US',
+    year: '2000',
+    gold: 52,
+    silver: 130,
+    bronze: 66,
+    total: 248,
+  },
+  {
+    country: 'US',
+    year: '2004',
+    gold: 73,
+    silver: 116,
+    bronze: 75,
+    total: 264,
+  },
+  {
+    country: 'US',
+    year: '2008',
+    gold: 81,
+    silver: 125,
+    bronze: 109,
+    total: 315,
+  },
+];
+
+export default data;

@@ -9,7 +9,7 @@ const {
 } = require('./../controllers/medals-by-games.controller');
 
 router
-  .get('/id?', getMedalsByGames)
+  .get('/:id?', getMedalsByGames)
   .post('/', addMedalsByGames)
   .put('/:id', updateMedalsByGames)
   .delete('/:id', removeMedalsByGames);
