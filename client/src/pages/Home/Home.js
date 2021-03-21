@@ -6,6 +6,10 @@ import Records100m from '../../components/Charts/Records100m/Records100m';
 import MedalsByCountry from '../../components/Charts/MedalsByCountry/MedalsByCountry';
 import MedalTable from '../../components/Charts/MedalTable/MedalTable';
 
+// TESTING A SIMPLE CHART WITH LOCAL DATA
+import TestChart from './../../components/Charts/MedalsByGames/TestChart';
+import data from './../../components/LocalData/TestChartData';
+
 function Home() {
   return (
     <div className="page">
@@ -17,8 +21,10 @@ function Home() {
           behind the games
         </p>
 
+        {/* THIS SEEMS THE SIMPLEST SET OF CHARTS */}
         <section className="medals-by-games">
-          <MedalsByGames />
+          {/* <MedalsByGames /> */}
+          <TestChart data={data} />
         </section>
 
         <section className="100m-records">

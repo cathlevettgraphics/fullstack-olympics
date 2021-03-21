@@ -6,12 +6,24 @@ const MedalsByGamesSchema = new Schema({
     type: String,
     required: true,
   },
-  medals: {
+  country: {
+    type: String,
+    required: true,
+  },
+  gold: {
     type: Number,
     required: true,
   },
-  country: {
-    type: String,
+  silver: {
+    type: Number,
+    required: true,
+  },
+  bronze: {
+    type: Number,
+    required: true,
+  },
+  total: {
+    type: Number,
     required: true,
   },
 });

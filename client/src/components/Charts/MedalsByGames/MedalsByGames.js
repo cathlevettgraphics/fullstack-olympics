@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useD3 } from '../../../hooks/useD3';
 import * as d3 from 'd3';
 
@@ -6,7 +6,6 @@ function MedalsByGames() {
   const [medals, setMedals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(null);
 
   // Get data fromm server
   useEffect(() => {
@@ -16,7 +15,7 @@ function MedalsByGames() {
         const response = await fetch('/api/v1/medals-by-games');
         if (response.ok) {
           const data = await response.json();
-          console.log({ data });
+          // console.log({ data });
           setMedals(data);
           setLoading(false);
           setLoaded(true);
@@ -29,6 +28,10 @@ function MedalsByGames() {
       getData();
     }
   }, [medals, setMedals]);
+
+  console.log('access outside use effect', medals);
+
+  // draw data?
 
   return (
     <div>
