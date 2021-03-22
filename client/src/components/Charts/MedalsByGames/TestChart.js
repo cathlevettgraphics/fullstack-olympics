@@ -1,39 +1,35 @@
 import { useD3 } from './../../../hooks/useD3';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
 
 function TestChart({ data }) {
-  const [medals, setMedals] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  // NOW IN CONTEXTS – GetMedalByGamesContext.js
+
+  // const [medals, setMedals] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
   // GET DATA
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch('/api/v1/medals-by-games');
-        if (response.ok) {
-          const data = await response.json();
-          setMedals(data);
-          setLoading(false);
-          setLoaded(true);
-
-          // trying to map over the data and log
-          for (const games of medals) {
-            console.log(games);
-          }
-        }
-      } catch (err) {
-        console.log('error', err.message || err.statusText);
-      }
-    };
-    if (!loaded && !loading) {
-      getData();
-    }
-  }, [medals, setMedals]);
-
-  console.log('medal data', medals);
+  // useEffect(() => {
+  //   const getMedalsData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch('/api/v1/medals-by-games');
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setMedals(data);
+  //         console.log('medal data', data);
+  //         setLoading(false);
+  //         setLoaded(true);
+  //       }
+  //     } catch (err) {
+  //       console.log('error', err.message || err.statusText);
+  //     }
+  //   };
+  //   if (!loaded && !loading) {
+  //     getMedalsData();
+  //   }
+  // }, [medals, setMedals]);
 
   // DRAW DATA – THE DATA IS PASSED IN AS A PROP ON THE HOME PAGE – USING LOCAL DATA AT THE MOMENT IN LOCAL DATA FOLDER
   const ref = useD3(
@@ -86,7 +82,7 @@ function TestChart({ data }) {
       // chart
       svg
         .select('.plot-area')
-        .attr('fill', 'cyan')
+        .attr('fill', 'hsla(187, 37%, 83%, 1)')
         .selectAll('.bar')
         .data(data)
         .join('rect')
@@ -131,13 +127,11 @@ function TestChart({ data }) {
         {/* <g className="y-axis" /> */}
         <g className="text" />
       </svg>
-      <h3>trying to print medals data here</h3>
-      <ul>
+      {/* <ul>
         {medals.map(({ year, total }) => {
-          <li key={year}>total medals: {total}</li>;
+          return <li key={year}>total medals: {total}</li>;
         })}
-      </ul>
-      <h3>end of medals data</h3>
+      </ul> */}
     </div>
   );
 }
