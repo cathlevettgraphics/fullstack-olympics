@@ -1,0 +1,546 @@
+[
+  {
+    "country": "US",
+    "year": 1976,
+    "gold": 36,
+    "silver": 63,
+    "bronze": 56,
+    "total": 155
+  },
+  {
+    "country": "US",
+    "year": 1980,
+    "gold": 61,
+    "silver": 112,
+    "bronze": 87,
+    "total": 260
+  },
+  {
+    "country": "US",
+    "year": 1984,
+    "gold": 50,
+    "silver": 168,
+    "bronze": 115,
+    "total": 333
+  },
+  {
+    "country": "US",
+    "year": 1988,
+    "gold": 52,
+    "silver": 77,
+    "bronze": 64,
+    "total": 193
+  },
+  {
+    "country": "US",
+    "year": 1992,
+    "gold": 85,
+    "silver": 89,
+    "bronze": 50,
+    "total": 224
+  },
+  {
+    "country": "US",
+    "year": 1996,
+    "gold": 52,
+    "silver": 160,
+    "bronze": 48,
+    "total": 260
+  },
+  {
+    "country": "US",
+    "year": 2000,
+    "gold": 52,
+    "silver": 130,
+    "bronze": 66,
+    "total": 248
+  },
+  {
+    "country": "US",
+    "year": 2004,
+    "gold": 73,
+    "silver": 116,
+    "bronze": 75,
+    "total": 264
+  },
+  {
+    "country": "US",
+    "year": 2008,
+    "gold": 81,
+    "silver": 125,
+    "bronze": 109,
+    "total": 315
+  },
+  {
+    "country": "US",
+    "year": 2012,
+    "gold": 46,
+    "silver": 28,
+    "bronze": 30,
+    "total": 104
+  },
+  {
+    "country": "US",
+    "year": 2016,
+    "gold": 46,
+    "silver": 37,
+    "bronze": 38,
+    "total": 121
+  },
+  {
+    "country": "Germany",
+    "year": 1976,
+    "gold": 72,
+    "silver": 120,
+    "bronze": 75,
+    "total": 267
+  },
+  {
+    "country": "Germany",
+    "year": 1980,
+    "gold": 61,
+    "silver": 112,
+    "bronze": 87,
+    "total": 260
+  },
+  {
+    "country": "Germany",
+    "year": 1984,
+    "gold": 52,
+    "silver": 31,
+    "bronze": 74,
+    "total": 157
+  },
+  {
+    "country": "Germany",
+    "year": 1988,
+    "gold": 91,
+    "silver": 107,
+    "bronze": 89,
+    "total": 287
+  },
+  {
+    "country": "Germany",
+    "year": 1992,
+    "gold": 60,
+    "silver": 81,
+    "bronze": 57,
+    "total": 198
+  },
+  {
+    "country": "Germany",
+    "year": 1996,
+    "gold": 47,
+    "silver": 42,
+    "bronze": 35,
+    "total": 124
+  },
+  {
+    "country": "Germany",
+    "year": 2000,
+    "gold": 65,
+    "silver": 31,
+    "bronze": 23,
+    "total": 119
+  },
+  {
+    "country": "Germany",
+    "year": 2004,
+    "gold": 63,
+    "silver": 41,
+    "bronze": 45,
+    "total": 149
+  },
+  {
+    "country": "Germany",
+    "year": 2008,
+    "gold": 43,
+    "silver": 42,
+    "bronze": 16,
+    "total": 101
+  },
+  {
+    "country": "Germany",
+    "year": 2012,
+    "gold": 11,
+    "silver": 20,
+    "bronze": 13,
+    "total": 44
+  },
+  {
+    "country": "Germany",
+    "year": 2016,
+    "gold": 17,
+    "silver": 10,
+    "bronze": 15,
+    "total": 42
+  },
+  {
+    "country": "Russia",
+    "year": 1976,
+    "gold": 79,
+    "silver": 113,
+    "bronze": 93,
+    "total": 285
+  },
+  {
+    "country": "Russia",
+    "year": 1980,
+    "gold": 123,
+    "silver": 192,
+    "bronze": 127,
+    "total": 442
+  },
+  {
+    "country": "Russia",
+    "year": 1984,
+    "gold": 0,
+    "silver": 0,
+    "bronze": 0,
+    "total": 0
+  },
+  {
+    "country": "Russia",
+    "year": 1988,
+    "gold": 95,
+    "silver": 134,
+    "bronze": 65,
+    "total": 294
+  },
+  {
+    "country": "Russia",
+    "year": 1992,
+    "gold": 66,
+    "silver": 92,
+    "bronze": 65,
+    "total": 223
+  },
+  {
+    "country": "Russia",
+    "year": 1996,
+    "gold": 34,
+    "silver": 36,
+    "bronze": 45,
+    "total": 115
+  },
+  {
+    "country": "Russia",
+    "year": 2000,
+    "gold": 54,
+    "silver": 66,
+    "bronze": 68,
+    "total": 188
+  },
+  {
+    "country": "Russia",
+    "year": 2004,
+    "gold": 96,
+    "silver": 47,
+    "bronze": 49,
+    "total": 192
+  },
+  {
+    "country": "Russia",
+    "year": 2008,
+    "gold": 56,
+    "silver": 43,
+    "bronze": 44,
+    "total": 143
+  },
+  {
+    "country": "Russia",
+    "year": 2004,
+    "gold": 96,
+    "silver": 47,
+    "bronze": 49,
+    "total": 192
+  },
+  {
+    "country": "Russia",
+    "year": 2008,
+    "gold": 56,
+    "silver": 43,
+    "bronze": 44,
+    "total": 143
+  },
+  {
+    "country": "Russia",
+    "year": 2012,
+    "gold": 20,
+    "silver": 20,
+    "bronze": 28,
+    "total": 68
+  },
+  {
+    "country": "Russia",
+    "year": 2016,
+    "gold": 19,
+    "silver": 17,
+    "bronze": 20,
+    "total": 56
+  },
+  {
+    "country": "UK",
+    "year": 1976,
+    "gold": 11,
+    "silver": 6,
+    "bronze": 15,
+    "total": 32
+  },
+  {
+    "country": "UK",
+    "year": 1980,
+    "gold": 22,
+    "silver": 5,
+    "bronze": 18,
+    "total": 45
+  },
+  {
+    "country": "UK",
+    "year": 1984,
+    "gold": 43,
+    "silver": 9,
+    "bronze": 20,
+    "total": 72
+  },
+  {
+    "country": "UK",
+    "year": 1988,
+    "gold": 15,
+    "silver": 22,
+    "bronze": 16,
+    "total": 53
+  },
+  {
+    "country": "UK",
+    "year": 1992,
+    "gold": 39,
+    "silver": 8,
+    "bronze": 3,
+    "total": 50
+  },
+  {
+    "country": "UK",
+    "year": 1996,
+    "gold": 9,
+    "silver": 2,
+    "bronze": 15,
+    "total": 26
+  },
+  {
+    "country": "UK",
+    "year": 2000,
+    "gold": 13,
+    "silver": 22,
+    "bronze": 20,
+    "total": 55
+  },
+  {
+    "country": "UK",
+    "year": 2004,
+    "gold": 15,
+    "silver": 17,
+    "bronze": 25,
+    "total": 57
+  },
+  {
+    "country": "UK",
+    "year": 2008,
+    "gold": 21,
+    "silver": 31,
+    "bronze": 25,
+    "total": 77
+  },
+  {
+    "country": "UK",
+    "year": 2012,
+    "gold": 29,
+    "silver": 17,
+    "bronze": 19,
+    "total": 65
+  },
+  {
+    "country": "UK",
+    "year": 2016,
+    "gold": 27,
+    "silver": 23,
+    "bronze": 17,
+    "total": 67
+  },
+  {
+    "country": "France",
+    "year": 1976,
+    "gold": 8,
+    "silver": 5,
+    "bronze": 7,
+    "total": 20
+  },
+  {
+    "country": "France",
+    "year": 1980,
+    "gold": 6,
+    "silver": 18,
+    "bronze": 5,
+    "total": 29
+  },
+  {
+    "country": "France",
+    "year": 1984,
+    "gold": 31,
+    "silver": 21,
+    "bronze": 16,
+    "total": 68
+  },
+  {
+    "country": "France",
+    "year": 1988,
+    "gold": 13,
+    "silver": 12,
+    "bronze": 4,
+    "total": 29
+  },
+  {
+    "country": "France",
+    "year": 1992,
+    "gold": 43,
+    "silver": 9,
+    "bronze": 5,
+    "total": 57
+  },
+  {
+    "country": "France",
+    "year": 1996,
+    "gold": 20,
+    "silver": 21,
+    "bronze": 10,
+    "total": 51
+  },
+  {
+    "country": "France",
+    "year": 2000,
+    "gold": 14,
+    "silver": 22,
+    "bronze": 30,
+    "total": 66
+  },
+  {
+    "country": "France",
+    "year": 2004,
+    "gold": 22,
+    "silver": 21,
+    "bronze": 10,
+    "total": 53
+  },
+  {
+    "country": "France",
+    "year": 2008,
+    "gold": 28,
+    "silver": 25,
+    "bronze": 23,
+    "total": 76
+  },
+  {
+    "country": "France",
+    "year": 2012,
+    "gold": 11,
+    "silver": 11,
+    "bronze": 13,
+    "total": 35
+  },
+  {
+    "country": "France",
+    "year": 2016,
+    "gold": 10,
+    "silver": 18,
+    "bronze": 14,
+    "total": 42
+  },
+  {
+    "country": "Italy",
+    "year": 1976,
+    "gold": 4,
+    "silver": 2,
+    "bronze": 25,
+    "total": 31
+  },
+  {
+    "country": "Italy",
+    "year": 1980,
+    "gold": 8,
+    "silver": 8,
+    "bronze": 21,
+    "total": 37
+  },
+  {
+    "country": "Italy",
+    "year": 1984,
+    "gold": 28,
+    "silver": 29,
+    "bronze": 6,
+    "total": 63
+  },
+  {
+    "country": "Italy",
+    "year": 1988,
+    "gold": 8,
+    "silver": 11,
+    "bronze": 10,
+    "total": 29
+  },
+  {
+    "country": "Italy",
+    "year": 1992,
+    "gold": 14,
+    "silver": 22,
+    "bronze": 10,
+    "total": 46
+  },
+  {
+    "country": "Italy",
+    "year": 1996,
+    "gold": 28,
+    "silver": 19,
+    "bronze": 24,
+    "total": 71
+  },
+  {
+    "country": "Italy",
+    "year": 2000,
+    "gold": 29,
+    "silver": 22,
+    "bronze": 14,
+    "total": 65
+  },
+  {
+    "country": "Italy",
+    "year": 2004,
+    "gold": 39,
+    "silver": 24,
+    "bronze": 39,
+    "total": 102
+  },
+  {
+    "country": "Italy",
+    "year": 2008,
+    "gold": 20,
+    "silver": 8,
+    "bronze": 14,
+    "total": 42
+  },
+  {
+    "country": "Italy",
+    "year": 2012,
+    "gold": 8,
+    "silver": 9,
+    "bronze": 11,
+    "total": 28
+  },
+  {
+    "country": "Italy",
+    "year": 2016,
+    "gold": 8,
+    "silver": 12,
+    "bronze": 8,
+    "total": 28
+  }
+]

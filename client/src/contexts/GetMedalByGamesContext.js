@@ -31,8 +31,10 @@ export const GetMedalByGamesProvider = (props) => {
         throw response;
       }
       const data = await response.json();
+
       localStorage.setItem('medals', JSON.stringify(data));
       setMedals(data);
+      console.log({ medals });
     } catch (err) {
       setError(err.message || err.statusText);
     } finally {

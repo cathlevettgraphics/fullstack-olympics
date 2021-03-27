@@ -1,10 +1,202 @@
-import React from 'react';
+import { useD3 } from './../../../hooks/useD3';
+import React, { useState, useEffect, useContext } from 'react';
+import * as d3 from 'd3';
 
-function MedalsByCountry() {
+function MedalsByCountry({ data, shapes }) {
+  const ref = useD3((svg) => {
+    // access data
+    const countryNameAccessor = (d) => d.properties['NAME'];
+    const countryIdAccessor = (d) => d.properties['ADM0_A3_IS'];
+    const countryShapes = shapes;
+
+    // create dimensions
+    let dimensions = {
+      width: window.innerWidth,
+      height: 400,
+      margin: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      },
+    };
+
+    // calculate total width
+    dimensions.boundedWidth =
+      dimensions.width - dimensions.margin.left - dimensions.margin.right;
+
+    // create map projection
+    const sphere = { type: 'Sphere' };
+    const projection = d3
+      .geoEqualEarth()
+      .fitWidth(dimensions.boundedWidth, sphere);
+
+    const pathGenerator = d3.geoPath(projection);
+    // get height dimentions
+    const [[x0, y0], [x1, y1]] = pathGenerator.bounds(sphere);
+
+    dimensions.boundedHeight = y1;
+    dimensions.height =
+      dimensions.boundedHeight +
+      dimensions.margin.top +
+      dimensions.margin.bottom;
+
+    // draw canvas
+    const map = d3
+      .select('.map')
+      .append('svg')
+      .attr('width', dimensions.width)
+      .attr('height', dimensions.height);
+
+    // draw bounds for chart
+    const bounds = map
+      .append('g')
+      .style(
+        'transform',
+        `translate( ${dimensions.margin.left}px, ${dimensions.margin.top}px)`,
+      );
+
+    // start –  cloropleth map
+    // filter the data we need
+    let totalMedals = {};
+
+    for (const country of data) {
+      totalMedals[country['ioc-code']] = +country['total'];
+    }
+
+    // create color scale for total medals
+    const metricValues = Object.values(totalMedals);
+    // extract smallest /largest value
+    const metricValuesExtent = d3.extent(metricValues);
+
+    // todo – work out the color buckets
+    const colorScale = d3
+      .scaleQuantize()
+      .domain([metricValuesExtent[0], metricValuesExtent[1]])
+      .range(['#CAE7B9', '#F3DE8A', '#EFB988', '#EB9486', '#97A7B3']);
+
+    // draw map
+    const countries = bounds
+      .selectAll('.country')
+      .data(countryShapes.features)
+      .join('path')
+      .attr('class', 'country')
+      .attr('id', (d) => countryNameAccessor(d))
+      .attr('d', pathGenerator)
+      .attr('fill', (d) => {
+        const metricValue = totalMedals[countryIdAccessor(d)];
+        if (typeof metricValue === 'undefined' || metricValue === 0) {
+          return '#fff';
+        }
+        return colorScale(metricValue);
+      })
+      .attr('stroke-width', 0.5)
+      .attr('stroke', (d) => {
+        if (countryNameAccessor(d) === 'Antarctica') {
+          return '#fff';
+        }
+        return '#bbb';
+      });
+
+    // create legend
+    const keyGroup = map
+      .append('g')
+      .attr('transform', `translate(${70}, ${dimensions.boundedHeight / 2})`);
+
+    const keyTitle = keyGroup
+      .append('text')
+      .attr('y', -23)
+      .attr('x', -60)
+      .attr('class', 'key-title')
+      .text('olympic medals')
+      .attr('font-size', '16px')
+      .attr('font-family', 'JetBrains Mono');
+
+    const keyline = keyGroup
+      .append('text')
+      .attr('y', 0)
+      .attr('x', -60)
+      .attr('class', 'key-byline')
+      .text('all time summer games')
+      .attr('font-size', '13px')
+      .attr('font-family', 'JetBrains Mono');
+
+    // BUCKETS SCALE BAR
+    const keyScale = keyGroup.append('g');
+    const keys = ['500', '1000', '1500', '2000', '2500'];
+    const keyLabels = ['under 500', '500', '1,000', '1,500', '> 2,000'];
+
+    // Add one dot in the legend for each bucket
+    keyScale
+      .selectAll('keyDots')
+      .data(keys)
+      .enter()
+      .append('circle')
+      .attr('cx', -50)
+      .attr('cy', (d, i) => 30 + i * 25) // 32 is first dot. 25 is the distance between
+      .attr('r', 7)
+      .style('fill', (d) => colorScale(d));
+
+    keyScale
+      .selectAll('keyLabels')
+      .data(keyLabels)
+      .enter()
+      .append('text')
+      .attr('x', -30)
+      .attr('y', (d, i) => 32 + i * 25) // 32 is first dot. 25 is the distance between
+      .style('fill', '#333')
+      .text((d) => d)
+      .attr('font-size', '13px')
+      .attr('font-family', 'JetBrains Mono')
+      .style('alignment-baseline', 'middle')
+      .attr('text-anchor', 'left');
+
+    // Add numbers
+    const medalTotalText = bounds
+      .append('g')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('x', (d) => projection([d.longitude, d.latitude])[0])
+      .attr('y', (d) => projection([d.longitude, d.latitude])[1])
+      .attr('dy', 5)
+      .text((d) => {
+        if (d.total > 300) {
+          const format = d3.format(',');
+          return format(d.total);
+        }
+      })
+      .attr('fill', (d) => (d.total > 2000 ? '#fff' : '#333'))
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '13px')
+      .attr('font-family', 'JetBrains Mono');
+
+    // end –  cloropleth map
+  }, []);
+
   return (
     <div>
-      <h2>which country has won the most medals?</h2>
-      <p>[ world map showing medal totals]</p>
+      <h2>The US, Russia and Europe dominate the all time medals table</h2>
+      <p>
+        Some pilots get picked and become television programs. Some don't,
+        become nothing. She starred in one of the ones that became nothing.
+      </p>
+      <svg
+        // appending to the svg element
+        ref={ref}
+        style={{
+          height: 400,
+          width: '100%',
+          marginRight: '0px',
+          marginLeft: '0px',
+        }}
+      >
+        <g className="map" />
+        {/* <g className="bounds" />
+        <g className="keyGroup" />
+        <g className="text" /> */}
+      </svg>
     </div>
   );
 }

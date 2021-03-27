@@ -34,76 +34,96 @@ function TestChart({ data }) {
   // DRAW DATA – THE DATA IS PASSED IN AS A PROP ON THE HOME PAGE – USING LOCAL DATA AT THE MOMENT IN LOCAL DATA FOLDER
   const ref = useD3(
     (svg) => {
-      const height = 300;
-      const width = 500;
-      const margin = { top: 20, right: 0, bottom: 30, left: 0 };
+      // access data
+      const xAccessor = (d) => d.year;
+      const yAccessor = (d) => d.total;
+      const US = data
+        .filter((d) => d.country === 'US')
+        .sort((a, b) => a.year.localeCompare(b.year));
+      // const countryAccessor = data.filter((d) => d.country === country);
 
-      const x = d3
-        .scaleBand()
-        .domain(data.map((d) => d.year))
-        .rangeRound([margin.left, width - margin.right])
-        .padding(0.1);
+      // todo – loop over and create multiple country charts
 
-      const y1 = d3
-        .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.total)])
-        .rangeRound([height - margin.bottom, margin.top])
-        .nice();
+      // create dimensions
+      let dimensions = {
+        width: window.innerWidth,
+        height: 300,
+        margin: {
+          top: 15,
+          right: 0,
+          bottom: 40,
+          left: 0,
+        },
+      };
 
-      const xAxis = (g) =>
-        g.attr('transform', `translate(0,${height - margin.bottom})`).call(
-          d3
-            .axisBottom(x)
-            .tickValues(
-              d3
-                .ticks(...d3.extent(x.domain()), width / 40)
-                .filter((v) => x(v) !== undefined),
-            )
-            .tickSizeOuter(0),
+      // set size of bounds
+      dimensions.boundedWidth =
+        dimensions.width - dimensions.margin.left - dimensions.margin.right;
+      dimensions.boundedHeight =
+        dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
+
+      const wrapper = d3
+        .select('.wrapper')
+        .append('svg')
+        .attr('width', dimensions.width)
+        .attr('height', dimensions.height);
+
+      // draw bounds for chart
+      const bounds = wrapper
+        .append('g')
+        .style(
+          'transform',
+          `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`,
         );
 
-      const y1Axis = (g) =>
-        g
-          .attr('transform', `translate(${margin.left},0)`)
-          .call(d3.axisLeft(y1).ticks(null, 's'))
-          .call((g) => g.select('.domain').remove())
-          .call((g) =>
-            g
-              .append('text')
-              .attr('x', -margin.left)
-              .attr('y', 10)
-              .attr('text-anchor', 'start')
-              .text(data.y1),
-          );
+      // create scales
+      const xScale = d3
+        .scaleBand()
+        .domain(US.map((d) => d.year))
+        .range([0, dimensions.boundedWidth]);
 
-      svg.select('.x-axis').call(xAxis);
-      svg.select('.y-axis').call(y1Axis);
+      // create scales
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, yAccessor)])
+        .range([dimensions.boundedHeight, 0]);
+
+      const barPadding = 2;
 
       // chart
-      svg
-        .select('.plot-area')
-        .attr('fill', 'hsla(187, 37%, 83%, 1)')
-        .selectAll('.bar')
-        .data(data)
+      const bars = bounds
+        .append('g')
+        .selectAll('rect')
+        .data(US)
         .join('rect')
-        .attr('class', 'bar')
-        .attr('x', (d) => x(d.year))
-        .attr('width', x.bandwidth())
-        .attr('y', (d) => y1(d.total))
-        .attr('height', (d) => y1(0) - y1(d.total));
+        .attr('x', (d) => xScale(xAccessor(d)))
+        .attr('y', (d) => yScale(yAccessor(d)))
+        .attr('width', xScale.bandwidth() - barPadding)
+        .attr('height', (d) => dimensions.boundedHeight - yScale(yAccessor(d)))
+        .style('fill', 'cyan');
 
       // text
-      svg
-        .select('.text')
-        .selectAll('.text')
-        .data(data)
+      const text = bounds
+        .append('g')
+        .selectAll('text')
+        .data(US)
         .join('text')
-        .text((d) => d.total)
-        .attr('text-anchor', 'center')
-        .attr('x', (d) => x(d.year))
-        .attr('width', x.bandwidth())
-        .attr('y', (d) => y1(d.total))
-        .attr('height', (d) => y1(0) - y1(d.total));
+        .attr('x', (d) => xScale(xAccessor(d)) + xScale.bandwidth() / 2)
+        .attr('y', (d) => yScale(yAccessor(d) - 50))
+        .attr('width', xScale.bandwidth() - barPadding)
+        .attr('height', (d) => dimensions.boundedHeight - yScale(yAccessor(d)))
+        .text(yAccessor)
+        .attr('text-anchor', 'middle')
+        .attr('font-family', 'JetBrains Mono');
+
+      const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
+      const xAxis = bounds
+        .append('g')
+        .call(xAxisGenerator)
+        .style('transform', `translateY(${dimensions.boundedHeight}px)`);
+
+      const yAxisGenerator = d3.axisLeft().scale(yScale).tickSizeOuter(0);
+      // const yAxis = bounds.append('g').call(yAxisGenerator);
     },
     [data.length],
   );
@@ -111,9 +131,11 @@ function TestChart({ data }) {
   return (
     <div>
       <h2>how have the top medaling nations performed over time?</h2>
-      <p>[ charts showing US, UK, Ger, Fra, Ita medals 1976-2016 ]</p>
-      <p>medals for the US team dropped after the 2004 Athens games </p>
+      <p>
+        <span>US</span> 2,477 medals since 1976
+      </p>
       <svg
+        // appending to the svg element
         ref={ref}
         style={{
           height: 300,
@@ -122,14 +144,19 @@ function TestChart({ data }) {
           marginLeft: '0px',
         }}
       >
-        <g className="plot-area" />
+        <g className="wrapper" />
+        <g className="bounds" />
         <g className="x-axis" />
-        {/* <g className="y-axis" /> */}
+        <g className="y-axis" />
         <g className="text" />
       </svg>
       {/* <ul>
-        {medals.map(({ year, total }) => {
-          return <li key={year}>total medals: {total}</li>;
+        {data.map(({ year, total, country }) => {
+          return (
+            <li key={year}>
+              {year} – {country}: {total} medals
+            </li>
+          );
         })}
       </ul> */}
     </div>
