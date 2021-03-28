@@ -7,12 +7,12 @@
   --cadet-grey: hsla(206, 16%, 65%, 1);
 }
 
-.medalsByGames {
+.medalContainer {
   max-inline-size: 1024px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: 0 auto;
+  margin-block-end: 30px;
+  padding-block-end: 30px;
+  border-bottom: 1px dashed var(--cadet-grey);
 }
 
 .introText {
@@ -28,13 +28,4 @@
 
 .strap {
   font-size: 1.6rem;
-}
-
-.smallMultiples {
-  display: flex;
-  flex-direction: column;
-  width: 620px;
-  margin-block-end: 30px;
-  padding-block-end: 30px;
-  border-bottom: 1px dashed var(--cadet-grey);
 }

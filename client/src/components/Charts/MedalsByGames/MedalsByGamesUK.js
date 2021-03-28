@@ -1,6 +1,7 @@
 import { useD3 } from './../../../hooks/useD3';
 import React, { useState, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
+import styles from './MedalsByGames.module.css';
 
 function MedalsByGamesUK({ data }) {
   const ref = useD3(
@@ -10,7 +11,7 @@ function MedalsByGamesUK({ data }) {
 
       // create dimensions
       let dimensions = {
-        width: window.innerWidth,
+        width: 620,
         height: 300,
         margin: {
           top: 20,
@@ -115,8 +116,8 @@ function MedalsByGamesUK({ data }) {
 
   return (
     <div>
-      <p>
-        <span>UK</span> 599 medals since 1976
+      <p className={styles.countryMedalCount}>
+        <span className={styles.countryName}>UK</span> 599 medals since 1976
       </p>
       <svg
         // appending to the svg element

@@ -1,0 +1,24 @@
+:root {
+  --tea-green: hsla(98, 49%, 82%, 1);
+  --buff: hsla(48, 81%, 75%, 1);
+  --middle-yellow-red: hsla(29, 76%, 74%, 1);
+  --vivid-tangerine: hsla(8, 72%, 72%, 1);
+  --rhythm: hsla(238, 12%, 55%, 1);
+  --cadet-grey: hsla(206, 16%, 65%, 1);
+}
+
+.mainNav {
+  padding: 15px 20px;
+  margin-block-end: 30px;
+  background-color: var(--cadet-grey);
+}
+
+.mainLogo {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.mainLogo:hover {
+  color: #333;
+  text-decoration: none;
+}

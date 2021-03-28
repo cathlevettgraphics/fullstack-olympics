@@ -1,6 +1,7 @@
 import { useD3 } from './../../../hooks/useD3';
 import React, { useState, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
+import styles from './MedalsByCountry.module.css';
 
 function MedalsByCountry({ data, shapes }) {
   const ref = useD3((svg) => {
@@ -11,8 +12,9 @@ function MedalsByCountry({ data, shapes }) {
 
     // create dimensions
     let dimensions = {
-      width: window.innerWidth,
-      height: 400,
+      width: 1024,
+      // width: window.innerWidth * 0.9,
+      height: 450,
       margin: {
         top: 0,
         right: 0,
@@ -176,17 +178,22 @@ function MedalsByCountry({ data, shapes }) {
   }, []);
 
   return (
-    <div>
-      <h2>The US, Russia and Europe dominate the all time medals table</h2>
-      <p>
-        Some pilots get picked and become television programs. Some don't,
-        become nothing. She starred in one of the ones that became nothing.
-      </p>
+    <div className={styles.medalContainer}>
+      <div className={styles.introText}>
+        <h2 className={styles.subhead}>
+          The US, Russia and Europe dominate the all time medals table
+        </h2>
+        <p className={styles.strap}>
+          Some pilots get picked and become television programs. Some don't,
+          become nothing. She starred in one of the ones that became nothing.
+        </p>
+      </div>
       <svg
+        className={styles.worldMap}
         // appending to the svg element
         ref={ref}
         style={{
-          height: 400,
+          height: 450,
           width: '100%',
           marginRight: '0px',
           marginLeft: '0px',

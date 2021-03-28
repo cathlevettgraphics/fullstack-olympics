@@ -40,7 +40,7 @@ function Home() {
   // console.log('server: medals by games ', medals);
 
   return (
-    <div className="page">
+    <div className={styles.page}>
       <Header />
       <main>
         <section>
@@ -52,19 +52,25 @@ function Home() {
         </section>
 
         <section className={styles.medalsByGames}>
-          <h2>how have the top medaling nations performed over time?</h2>
-          <p>
-            Well, the way they make shows is, they make one show. That show's
-            called a pilot. Then they show that show to the people who make
-            shows, and on the strength of that one show they decide if they're
-            going to make more shows.
-          </p>
-          <MedalsByGamesUS data={medals} />
-          <MedalsByGamesRUS data={medals} />
-          <MedalsByGamesGER data={medals} />
-          <MedalsByGamesUK data={medals} />
-          <MedalsByGamesITA data={medals} />
-          <MedalsByGamesFRA data={medals} />
+          <div className={styles.introText}>
+            <h2 className={styles.subhead}>
+              How have the top medaling nations performed over time?
+            </h2>
+            <p className={styles.strap}>
+              Well, the way they make shows is, they make one show. That show's
+              called a pilot. Then they show that show to the people who make
+              shows, and on the strength of that one show they decide if they're
+              going to make more shows.
+            </p>
+          </div>
+          <div className={styles.smallMultiples}>
+            <MedalsByGamesUS data={medals} />
+            <MedalsByGamesRUS data={medals} />
+            <MedalsByGamesGER data={medals} />
+            <MedalsByGamesUK data={medals} />
+            <MedalsByGamesITA data={medals} />
+            <MedalsByGamesFRA data={medals} />
+          </div>
         </section>
 
         <section className="100m-records">
