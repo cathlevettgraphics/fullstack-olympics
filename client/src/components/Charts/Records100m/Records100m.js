@@ -1,14 +1,163 @@
 import React from 'react';
+import { useD3 } from './../../../hooks/useD3';
+import * as d3 from 'd3';
 import styles from './Records100m.module.css';
 
-function Records100m() {
+function Records100m({ data }) {
+  const ref = useD3(
+    (svg) => {
+      console.log('100m record data', data);
+
+      // create dimensions
+      let dimensions = {
+        width: 1024,
+        height: 400,
+        margin: {
+          top: 20,
+          right: 100,
+          bottom: 20,
+          left: 135,
+        },
+      };
+
+      // set size of bounds
+      dimensions.boundedWidth =
+        dimensions.width - dimensions.margin.left - dimensions.margin.right;
+      dimensions.boundedHeight =
+        dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
+
+      // access data
+      const xAccessor = (d) => d.track;
+      const yAccessor = (d) => d.competitor;
+      const timeAccessor = (d) => d.time;
+
+      const animated100m = d3
+        .select('.animated100m')
+        .append('svg')
+        .attr('width', dimensions.width)
+        .attr('height', dimensions.height);
+
+      // draw bounds for chart
+      const bounds = animated100m
+        .append('g')
+        .style(
+          'transform',
+          `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`,
+        );
+
+      // create scales
+      const xScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, xAccessor)])
+        .range([0, dimensions.boundedWidth])
+        .nice();
+
+      const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
+      const xAxis = bounds
+        .append('g')
+        .call(xAxisGenerator)
+        .style('transform', `translateY(${dimensions.boundedHeight}px)`)
+        .attr('font-family', 'JetBrains Mono')
+        .attr('font-size', '13px');
+
+      // start position circles
+      const athletes = bounds
+        .append('g')
+        .selectAll('circle')
+        .data(data)
+        .join('circle')
+        .attr('cx', 0)
+        .attr('cy', (d, i) => 10 + i * 44)
+        .attr('r', 10)
+        .style('fill', (d) =>
+          d.competitor === 'Usain Bolt'
+            ? 'hsla(8, 72%, 72%, 1)'
+            : 'hsla(206, 16%, 65%, 1',
+        );
+
+      const athleteTrailingBar = bounds
+        .append('g')
+        .selectAll('rect')
+        .data(data)
+        .join('rect')
+        .attr('x', 0)
+        .attr('y', (d, i) => 6 + i * 44)
+        .attr('width', 0)
+        .attr('height', 10)
+        .style('fill', (d) =>
+          d.competitor === 'Usain Bolt'
+            ? 'hsla(8, 72%, 72%, 1)'
+            : 'hsla(206, 16%, 65%, 1',
+        );
+
+      // athlete names text
+      const text = animated100m
+        .append('g')
+        .selectAll('text')
+        .data(data)
+        .join('text')
+        .attr('x', 0)
+        .attr('y', (d, i) => 37 + i * 44)
+        .text(yAccessor)
+        .attr('text-anchor', 'left')
+        .style('fill', (d) =>
+          d.competitor === 'Usain Bolt'
+            ? 'hsla(8, 72%, 72%, 1)'
+            : 'hsla(206, 16%, 65%, 1',
+        )
+        .style('font-weight', (d) =>
+          d.competitor === 'Usain Bolt' ? 'bold' : 'normal',
+        );
+
+      // race time text
+      const times = bounds
+        .append('g')
+        .selectAll('text')
+        .data(data)
+        .join('text')
+        .attr('x', dimensions.boundedWidth + 20)
+        .attr('y', (d, i) => 15 + i * 44)
+        .text(timeAccessor)
+        .attr('text-anchor', 'left')
+        .attr('opacity', 0)
+        .style('fill', (d) =>
+          d.competitor === 'Usain Bolt'
+            ? 'hsla(8, 72%, 72%, 1)'
+            : 'hsla(206, 16%, 65%, 1',
+        )
+        .style('font-weight', (d) =>
+          d.competitor === 'Usain Bolt' ? 'bold' : 'normal',
+        );
+
+      // todo – add to click event
+      // create animations
+      athletes
+        .transition()
+        .ease(d3.easeLinear)
+        .duration((d) => timeAccessor(d) * 1000)
+        .attr('cx', dimensions.boundedWidth);
+
+      athleteTrailingBar
+        .transition()
+        .ease(d3.easeLinear)
+        .duration((d) => timeAccessor(d) * 1000)
+        .attr('x', 0)
+        .attr('width', dimensions.boundedWidth);
+
+      times
+        .transition()
+        .delay((d) => timeAccessor(d) * 1000)
+        .attr('opacity', 1);
+    },
+    [data.length],
+  );
+
   return (
     <div className={styles.recordContainer}>
       <div className={styles.introText}>
         <h2 className={styles.subhead}>
-          Can usain bolts 100m record ever be beaten?
+          Can Usain Bolt's 100m record ever be beaten?
         </h2>
-        <p className={styles.strap}>[ aninmated chart showing 100m records]</p>
         <p className={styles.strap}>
           Your bones don't break, mine do. That's clear. Your cells react to
           bacteria and viruses differently than mine. You don't get sick, I do.
@@ -16,7 +165,27 @@ function Records100m() {
           way to water.
         </p>
       </div>
-      <div className={styles.placeholder}></div>
+      <p>[ ADD CONTROLS – PLAY, RESET, TWICE AS FAST]</p>
+
+      {/* <button className={styles.btn}>Replay the world record</button>
+      <button>Twice the speed</button>
+      <button>Reset</button> */}
+      <svg
+        // appending to the svg element
+        ref={ref}
+        style={{
+          height: 400,
+          width: '100%',
+          marginRight: '0px',
+          marginLeft: '0px',
+        }}
+      >
+        <g className="animated100m" />
+        <g className="bounds" />
+        <g className="x-axis" />
+        <g className="y-axis" />
+        <g className="text" />
+      </svg>
     </div>
   );
 }

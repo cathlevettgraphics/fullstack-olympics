@@ -5,7 +5,7 @@ function MedalTable() {
   return (
     <div className={styles.medalContainer}>
       <div className={styles.introText}>
-        <h2 className={styles.subhead}>all time medal table?</h2>
+        <h2 className={styles.subhead}>all time medal table</h2>
         <p className={styles.strap}>
           [ table with proportional circles showing gold, silver bronze medals]
         </p>

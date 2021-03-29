@@ -36,3 +36,7 @@
   height: 600px;
   background-color: lightgray;
 }
+
+.btn {
+  margin-block-end: 30px;
+}

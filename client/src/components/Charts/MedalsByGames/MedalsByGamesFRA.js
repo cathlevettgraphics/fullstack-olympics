@@ -1,5 +1,5 @@
 import { useD3 } from './../../../hooks/useD3';
-import React, { useState, useEffect, useContext } from 'react';
+// import React, { useState, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
 import styles from './MedalsByGames.module.css';
 
@@ -101,7 +101,9 @@ function MedalsByGamesFRA({ data }) {
       const xAxis = bounds
         .append('g')
         .call(xAxisGenerator)
-        .style('transform', `translateY(${dimensions.boundedHeight}px)`);
+        .style('transform', `translateY(${dimensions.boundedHeight}px)`)
+        .attr('font-family', 'JetBrains Mono')
+        .attr('font-size', '13px');
 
       const yAxisGenerator = d3.axisLeft().scale(yScale).tickSizeOuter(0);
       // const yAxis = bounds.append('g').call(yAxisGenerator);
