@@ -71,7 +71,6 @@ function MedalsByCountry({ data, shapes }) {
     // extract smallest /largest value
     const metricValuesExtent = d3.extent(metricValues);
 
-    // todo – work out the color buckets
     const colorScale = d3
       .scaleQuantize()
       .domain([metricValuesExtent[0], metricValuesExtent[1]])
@@ -154,6 +153,7 @@ function MedalsByCountry({ data, shapes }) {
       .attr('text-anchor', 'left');
 
     // Add numbers
+    // todo – This is throwing an error in console
     const medalTotalText = bounds
       .append('g')
       .selectAll('text')
