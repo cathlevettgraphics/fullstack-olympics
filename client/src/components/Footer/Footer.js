@@ -10,7 +10,7 @@ function Foter() {
         </a>
       </span>
       <span>
-        <a href="http://www.cathlevett.com" className={styles.brandLogo}>
+        <a href="http://cathlevett.com/" className={styles.brandLogo}>
           cath levett graphics
         </a>
       </span>

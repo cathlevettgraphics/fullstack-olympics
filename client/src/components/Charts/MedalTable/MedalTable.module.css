@@ -8,14 +8,13 @@
 }
 
 .medalContainer {
-  max-inline-size: 1024px;
+  max-inline-size: 620px;
   margin: 0 auto;
   margin-block-end: 30px;
   padding-block-end: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border-bottom: 1px dashed var(--cadet-grey); */
 }
 
 .introText {
@@ -32,10 +31,6 @@
 .strap {
   font-size: 1.6rem;
 }
-
-.placeholder {
-  width: 620px;
-  margin: 0, auto;
-  height: 600px;
-  background-color: lightgray;
-}
+/* .table {
+  border: 1px solid #000;
+} */

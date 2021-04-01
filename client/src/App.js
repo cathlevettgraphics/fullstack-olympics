@@ -3,7 +3,6 @@ import './generics.css';
 import { GetMedalByGamesProvider } from './contexts/GetMedalByGamesContext';
 
 import Home from './pages/Home/Home';
-import { format } from 'd3-format';
 
 function App() {
   return (

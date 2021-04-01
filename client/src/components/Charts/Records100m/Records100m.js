@@ -6,7 +6,7 @@ import styles from './Records100m.module.css';
 function Records100m({ data }) {
   const ref = useD3(
     (svg) => {
-      console.log('100m record data', data);
+      // console.log('100m record data', data);
 
       // create dimensions
       let dimensions = {

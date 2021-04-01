@@ -1,5 +1,5 @@
 import { useD3 } from './../../../hooks/useD3';
-import React, { useState, useEffect, useContext } from 'react';
+// import React, { useState, useEffect, useContext } from 'react';
 import * as d3 from 'd3';
 import styles from './MedalsByCountry.module.css';
 

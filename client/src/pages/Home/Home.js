@@ -24,11 +24,14 @@ import MedalsByCountry from '../../components/Charts/MedalsByCountry/MedalsByCou
 import MedalTable from '../../components/Charts/MedalTable/MedalTable';
 
 // ! IMPORT LOCAL DATA FOR WORLD MAP AND GEOJSON
-import data from '../../components/SeedData/medal-geo.js';
+import data from '../../SeedData/medal-geo';
 import shapes from '../../components/Charts/MapData/WorldMap/ne_50m_admin_0_countries/world-geojson.json';
 
 // ! IMPORT LOCAL DATA FOR 100m RECORSDS
-import data100m from '../../components/SeedData/100mRecords';
+import data100m from '../../SeedData/100mRecords';
+
+// ! IMPORT LOCAL DATA FOR MEDAL TABLE
+import allTimeMedals from '../../SeedData/allTimeMedals';
 
 // IMPORT CONTEXTS
 import { GetMedalByGamesContext } from '../../contexts/GetMedalByGamesContext';
@@ -81,7 +84,7 @@ function Home() {
         </section>
 
         <section className="medals-table">
-          <MedalTable />
+          <MedalTable data={allTimeMedals} />
         </section>
       </main>
       <Footer />
