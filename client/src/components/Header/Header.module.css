@@ -8,6 +8,7 @@
 }
 
 .mainNav {
+  max-inline-size: 100vw;
   padding: 15px 20px;
   margin-block-end: 30px;
   background-color: var(--cadet-grey);

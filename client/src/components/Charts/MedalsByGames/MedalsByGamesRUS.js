@@ -69,6 +69,14 @@ function MedalsByGamesRUS({ data }) {
         .domain([0, d3.max(data, yAccessor)])
         .range([dimensions.boundedHeight, 0]);
 
+      // calculate average
+      const medalsArr = data
+        .filter((d) => d.country === 'Russia')
+        .map((d) => d.total)
+        .reduce((acc, curr) => acc + curr, 0);
+
+      const mean = medalsArr / countryAccessor.length;
+
       const barPadding = 2;
 
       // chart
@@ -96,6 +104,19 @@ function MedalsByGamesRUS({ data }) {
         .text(yAccessor)
         .attr('text-anchor', 'middle')
         .attr('font-family', 'JetBrains Mono');
+
+      // draw average medals
+      const meanLine = bounds
+        .append('g')
+        .selectAll('line')
+        .data(data)
+        .join('line')
+        .attr('x1', 0)
+        .attr('x2', dimensions.boundedWidth)
+        .attr('y1', yScale(mean))
+        .attr('y2', yScale(mean))
+        .attr('stroke', '#333')
+        .attr('stroke-dasharray', '2px 2px');
 
       const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
       const xAxis = bounds

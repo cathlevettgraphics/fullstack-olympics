@@ -9,12 +9,19 @@
 
 .medalContainer {
   max-inline-size: 620px;
+  width: 95%;
   margin: 0 auto;
   margin-block-end: 30px;
   padding-block-end: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (min-width: 961px) {
+  .medalContainer {
+    max-inline-size: 620px;
+  }
 }
 
 .introText {
@@ -31,6 +38,3 @@
 .strap {
   font-size: 1.6rem;
 }
-/* .table {
-  border: 1px solid #000;
-} */

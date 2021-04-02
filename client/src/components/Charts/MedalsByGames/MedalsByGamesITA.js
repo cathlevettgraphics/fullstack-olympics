@@ -38,6 +38,14 @@ function MedalsByGamesITA({ data }) {
         .filter((d) => d.country === 'France')
         .sort((a, b) => a.year.localeCompare(b.year));
 
+      // calculate average
+      const medalsArr = data
+        .filter((d) => d.country === 'Italy')
+        .map((d) => d.total)
+        .reduce((acc, curr) => acc + curr, 0);
+
+      const mean = medalsArr / countryAccessor.length;
+
       // todo – loop over and create multiple country charts
       // const countryAccessor = data
       //   .filter((d) => d.country === country)
@@ -96,6 +104,19 @@ function MedalsByGamesITA({ data }) {
         .text(yAccessor)
         .attr('text-anchor', 'middle')
         .attr('font-family', 'JetBrains Mono');
+
+      // draw average medals
+      const meanLine = bounds
+        .append('g')
+        .selectAll('line')
+        .data(data)
+        .join('line')
+        .attr('x1', 0)
+        .attr('x2', dimensions.boundedWidth)
+        .attr('y1', yScale(mean))
+        .attr('y2', yScale(mean))
+        .attr('stroke', '#333')
+        .attr('stroke-dasharray', '2px 2px');
 
       const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
       const xAxis = bounds

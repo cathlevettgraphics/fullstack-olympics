@@ -49,8 +49,9 @@ function MedalTable({ data }) {
       const medalsTable = d3
         .select('.medalsTable')
         .append('svg')
-        .attr('width', dimensions.width)
-        .attr('height', dimensions.height);
+        // .attr('width', dimensions.width)
+        // .attr('height', dimensions.height)
+        .attr('viewbox', dimensions.width, dimensions.height);
 
       // draw bounds for chart
       const bounds = medalsTable
@@ -179,6 +180,7 @@ function MedalTable({ data }) {
           same curve, just on opposite ends.
         </p>
       </div>
+
       <svg
         className={styles.table}
         // appending to the svg element

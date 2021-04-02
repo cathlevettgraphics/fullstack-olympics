@@ -8,6 +8,8 @@
 }
 
 .countryMedalCount {
+  max-inline-size: 620px;
+  width: 100%;
   font-size: 2.4rem;
   color: var(--vivid-tangerine);
   font-weight: bold;

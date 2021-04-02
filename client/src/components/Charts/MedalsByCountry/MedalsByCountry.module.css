@@ -8,11 +8,18 @@
 }
 
 .medalContainer {
-  max-inline-size: 1024px;
+  max-inline-size: 620px;
+  width: 95%;
   margin: 0 auto;
   margin-block-end: 30px;
   padding-block-end: 30px;
   border-bottom: 1px dashed var(--cadet-grey);
+}
+
+@media (min-width: 961px) {
+  .medalContainer {
+    max-inline-size: 1024px;
+  }
 }
 
 .introText {

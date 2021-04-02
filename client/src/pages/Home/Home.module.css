@@ -8,11 +8,18 @@
 }
 
 .medalsByGames {
-  max-inline-size: 1024px;
+  max-inline-size: 620px;
+  width: 95%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (min-width: 961px) {
+  .medalsByGames {
+    max-inline-size: 1024px;
+  }
 }
 
 .introText {
@@ -25,7 +32,6 @@
   color: var(--cadet-grey);
   font-size: 2.4rem;
 }
-
 .strap {
   font-size: 1.6rem;
 }
@@ -33,8 +39,14 @@
 .smallMultiples {
   display: flex;
   flex-direction: column;
-  width: 620px;
+  width: 355px;
   margin-block-end: 30px;
   padding-block-end: 30px;
   border-bottom: 1px dashed var(--cadet-grey);
+}
+
+@media (min-width: 961px) {
+  .smallMultiples {
+    width: 620px;
+  }
 }

@@ -4,7 +4,7 @@ import styles from './Footer.module.css';
 function Foter() {
   return (
     <div className={styles.mainNav}>
-      <span>
+      <span className={styles.logo}>
         <a href="#" className={styles.mainLogo}>
           faster → higher → stronger
         </a>

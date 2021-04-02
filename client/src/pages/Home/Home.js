@@ -36,14 +36,14 @@ import allTimeMedals from '../../SeedData/allTimeMedals';
 // IMPORT CONTEXTS
 import { GetMedalByGamesContext } from '../../contexts/GetMedalByGamesContext';
 
-function Home() {
-  // USE CONTEXT FOR MEDALS BY GAMES DATA
+function Home({ play }) {
+  //=*********************
+  //= Medals by games
+  //=*********************
   const { getMedalsByGamesData, medals } = useContext(GetMedalByGamesContext);
-  // GET DATA FOR MEDALS BY GAMES
   useEffect(() => {
     getMedalsByGamesData();
   }, [getMedalsByGamesData]);
-  // console.log('server: medals by games ', medals);
 
   return (
     <div className={styles.page}>

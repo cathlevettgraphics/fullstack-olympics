@@ -38,6 +38,14 @@ function MedalsByGamesUS({ data }) {
         .filter((d) => d.country === 'US')
         .sort((a, b) => a.year.localeCompare(b.year));
 
+      // calculate average
+      const medalsArr = data
+        .filter((d) => d.country === 'US')
+        .map((d) => d.total)
+        .reduce((acc, curr) => acc + curr, 0);
+
+      const mean = medalsArr / countryAccessor.length;
+
       // todo – loop over and create multiple country charts
       // const countryAccessor = data
       //   .filter((d) => d.country === country)
@@ -97,7 +105,32 @@ function MedalsByGamesUS({ data }) {
         .attr('text-anchor', 'middle')
         .attr('font-family', 'JetBrains Mono');
 
+      // draw average medals
+      const meanLine = bounds
+        .append('g')
+        .selectAll('line')
+        .data(data)
+        .join('line')
+        .attr('x1', 0)
+        .attr('x2', dimensions.boundedWidth)
+        .attr('y1', yScale(mean))
+        .attr('y2', yScale(mean))
+        .attr('stroke', '#333')
+        .attr('stroke-dasharray', '2px 2px');
+
+      const meanLabel = bounds
+        .append('g')
+        .selectAll('text')
+        .data(countryAccessor)
+        .join('text')
+        .attr('x', dimensions.boundedWidth - 110)
+        .attr('y', yScale(mean) - 7)
+        .text('average medals')
+        .attr('text-anchor', 'right')
+        .attr('font-size', '13px');
+
       const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
+
       const xAxis = bounds
         .append('g')
         .call(xAxisGenerator)
@@ -123,6 +156,7 @@ function MedalsByGamesUS({ data }) {
         <span className={styles.countryName}>US</span> 2,477 medals since 1976
       </p>
       <svg
+        className="TEST"
         // appending to the svg element
         ref={ref}
         style={{
@@ -133,10 +167,6 @@ function MedalsByGamesUS({ data }) {
         }}
       >
         <g className="usChart" />
-        <g className="bounds" />
-        <g className="x-axis" />
-        <g className="y-axis" />
-        <g className="text" />
       </svg>
     </div>
   );

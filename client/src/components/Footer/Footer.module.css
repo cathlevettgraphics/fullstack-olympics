@@ -6,13 +6,19 @@
   --rhythm: hsla(238, 12%, 55%, 1);
   --cadet-grey: hsla(206, 16%, 65%, 1);
 }
-
 .mainNav {
+  max-inline-size: 100%;
   padding: 15px 20px;
-  margin-block-end: 30px;
   background-color: var(--cadet-grey);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+@media (min-width: 961px) {
+  .mainNav {
+    flex-direction: row;
+  }
 }
 
 .mainLogo,
@@ -25,4 +31,8 @@
 .brandLogo:hover {
   color: #333;
   text-decoration: none;
+}
+
+.logo {
+  margin-block-end: 7px;
 }

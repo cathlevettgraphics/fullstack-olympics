@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useD3 } from './../../../hooks/useD3';
 import * as d3 from 'd3';
 import styles from './Records100m.module.css';
@@ -6,14 +6,12 @@ import styles from './Records100m.module.css';
 function Records100m({ data }) {
   const ref = useD3(
     (svg) => {
-      // console.log('100m record data', data);
-
       // create dimensions
       let dimensions = {
         width: 1024,
         height: 430,
         margin: {
-          top: 40,
+          top: 30,
           right: 100,
           bottom: 20,
           left: 135,
@@ -67,7 +65,7 @@ function Records100m({ data }) {
         .data(data)
         .join('circle')
         .attr('cx', 0)
-        .attr('cy', (d, i) => 25 + i * 44)
+        .attr('cy', (d, i) => 35 + i * 44)
         .attr('r', 10)
         .style('fill', (d) =>
           d.competitor === 'Usain Bolt'
@@ -81,7 +79,7 @@ function Records100m({ data }) {
         .data(data)
         .join('rect')
         .attr('x', 0)
-        .attr('y', (d, i) => 20 + i * 44)
+        .attr('y', (d, i) => 30 + i * 44)
         .attr('width', 0)
         .attr('height', 10)
         .style('fill', (d) =>
@@ -129,131 +127,92 @@ function Records100m({ data }) {
           d.competitor === 'Usain Bolt' ? 'bold' : 'normal',
         );
 
-      // todo – render these in react not d3
+      // todo – render buttons in react not d3
+      // Make buttons
+      const makeButton = (xPos, width) => {
+        const button = bounds
+          .append('g')
+          .selectAll('rect')
+          .data(data)
+          .join('rect')
+          .attr('x', xPos)
+          .attr('y', -30)
+          .attr('width', width)
+          .attr('height', 40)
+          .style('rx', 20)
+          .style('fill', 'hsla(48, 81%, 75%, 1)')
+          .style('cursor', 'pointer');
+
+        return button;
+      };
+      // Make button text
+      const makeButtonText = (xPos, textContent) => {
+        const buttonText = bounds
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', xPos)
+          .attr('y', -5)
+          .text(textContent)
+          .style('fill', '#333')
+          .style('text-anchor', 'middle')
+          .style('cursor', 'pointer');
+
+        return buttonText;
+      };
+
+      // Make race animation
+      const playAnimation = (elToAnmiate, timesAsFast) => {
+        return elToAnmiate.on('click', function (e) {
+          athletes
+            .transition()
+            .ease(d3.easeLinear)
+            .duration((d) => (timeAccessor(d) * 1000) / timesAsFast)
+            .attr('cx', dimensions.boundedWidth);
+
+          athleteTrailingBar
+            .transition()
+            .ease(d3.easeLinear)
+            .duration((d) => (timeAccessor(d) * 1000) / timesAsFast)
+            .attr('x', 0)
+            .attr('width', dimensions.boundedWidth);
+
+          times
+            .transition()
+            .delay((d) => (timeAccessor(d) * 1000) / timesAsFast)
+            .attr('opacity', 1);
+        });
+      };
+
       // Play button
-      const playBtn = bounds
-        .append('g')
-        .selectAll('rect')
-        .data(data)
-        .join('rect')
-        .attr('x', 0)
-        .attr('y', -30)
-        .attr('width', 100)
-        .attr('height', 25)
-        .style('fill', 'black')
-        .style('cursor', 'pointer');
+      const playBtn = makeButton(0, 100);
+      const playBtnText = makeButtonText(50, 'Play');
+      const playRecordAnimationText = playAnimation(playBtnText, 1);
+      const playRecordAnimationBtn = playAnimation(playBtn, 1);
 
-      const playBtnText = bounds
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 10)
-        .attr('y', -10)
-        .text('Play')
-        .style('fill', '#fff')
-        .style('cursor', 'pointer');
-
-      // !  Animation
-      // Play main animation
-      playBtnText.on('click', function (e) {
-        athletes
-          .transition()
-          .ease(d3.easeLinear)
-          .duration((d) => timeAccessor(d) * 1000)
-          .attr('cx', dimensions.boundedWidth);
-
-        athleteTrailingBar
-          .transition()
-          .ease(d3.easeLinear)
-          .duration((d) => timeAccessor(d) * 1000)
-          .attr('x', 0)
-          .attr('width', dimensions.boundedWidth);
-
-        times
-          .transition()
-          .delay((d) => timeAccessor(d) * 1000)
-          .attr('opacity', 1);
-      });
-
-      // todo – render these in react not d3
-      // Play twice as fast button
-      const playBtnTwiceAsFast = bounds
-        .append('g')
-        .selectAll('rect')
-        .data(data)
-        .join('rect')
-        .attr('x', 250)
-        .attr('y', -30)
-        .attr('width', 100)
-        .attr('height', 25)
-        .style('fill', 'orange')
-        .style('cursor', 'pointer');
-
-      const playBtnTwiceAsFastText = bounds
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 250)
-        .attr('y', -10)
-        .text('Twice as fast')
-        .style('cursor', 'pointer');
-
-      // !  Animation
-      // Play twice as fast animation
-      playBtnTwiceAsFastText.on('click', function (e) {
-        athletes
-          .transition()
-          .ease(d3.easeLinear)
-          .duration((d) => (timeAccessor(d) * 1000) / 2)
-          .attr('cx', dimensions.boundedWidth);
-
-        athleteTrailingBar
-          .transition()
-          .ease(d3.easeLinear)
-          .duration((d) => (timeAccessor(d) * 1000) / 2)
-          .attr('x', 0)
-          .attr('width', dimensions.boundedWidth);
-
-        times
-          .transition()
-          .delay((d) => (timeAccessor(d) * 1000) / 2)
-          .attr('opacity', 1);
-      });
-
-      // todo – render these in react not d3
       // Reset button
-      const resetBtn = bounds
-        .append('g')
-        .selectAll('rect')
-        .data(data)
-        .join('rect')
-        .attr('x', 120)
-        .attr('y', -30)
-        .attr('width', 100)
-        .attr('height', 25)
-        .style('fill', 'red')
-        .style('cursor', 'pointer');
-
-      const resetBtnText = bounds
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 120)
-        .attr('y', -10)
-        .text('Reset')
-        .style('fill', '#fff')
-        .style('cursor', 'pointer');
-
-      // !  Animation
+      const resetBtn = makeButton(110, 100);
+      const resetBtnText = makeButtonText(160, 'Reset');
       // Reset main animation
-      resetBtnText.on('click', function (e) {
-        athletes.transition().attr('cx', 0);
-        athleteTrailingBar.transition().attr('x', 0).attr('width', 0);
-        times.transition().attr('opacity', 0);
-      });
+      const resetAnimation = (elToAnmiate) => {
+        return elToAnmiate.on('click', function (e) {
+          athletes.transition().attr('cx', 0);
+          athleteTrailingBar.transition().attr('x', 0).attr('width', 0);
+          times.transition().attr('opacity', 0);
+        });
+      };
+
+      resetAnimation(resetBtnText);
+      resetAnimation(resetBtn);
+
+      // Play twice as fast button
+      const playBtnTwiceAsFast = makeButton(220, 160);
+      const playBtnTwiceAsFastText = makeButtonText(300, 'Twice as fast');
+      const playRecordAnimation2xText = playAnimation(
+        playBtnTwiceAsFastText,
+        2,
+      );
     },
     [data.length],
   );
@@ -270,13 +229,14 @@ function Records100m({ data }) {
           That's also clear. But for some reason, you and I react the exact same
           way to water.
         </p>
-        <p>[ TODO – render these buttons in react not d3]</p>
+        <p>Here are the eight fastest 100m times ever run</p>
       </div>
 
-      {/* <button className={styles.btn}>Replay the world record</button>
+      {/* <button>Replay the worlwd record</button>
       <button>Twice the speed</button>
       <button>Reset</button> */}
       <svg
+        className={styles.recordAnimation}
         // appending to the svg element
         ref={ref}
         style={{

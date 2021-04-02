@@ -200,9 +200,6 @@ function MedalsByCountry({ data, shapes }) {
         }}
       >
         <g className="map" />
-        {/* <g className="bounds" />
-        <g className="keyGroup" />
-        <g className="text" /> */}
       </svg>
     </div>
   );
