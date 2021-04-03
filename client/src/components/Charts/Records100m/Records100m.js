@@ -50,13 +50,19 @@ function Records100m({ data }) {
         .range([0, dimensions.boundedWidth])
         .nice();
 
-      const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
+      const xAxisGenerator = d3
+        .axisBottom()
+        .scale(xScale)
+        // .tickSizeOuter(0)
+        .tickSize(-dimensions.boundedHeight + 20);
+
       const xAxis = bounds
         .append('g')
         .call(xAxisGenerator)
         .style('transform', `translateY(${dimensions.boundedHeight}px)`)
         .attr('font-family', 'JetBrains Mono')
-        .attr('font-size', '13px');
+        .attr('font-size', '13px')
+        .attr('stroke-dasharray', '2px 2px');
 
       // start position circles
       const athletes = bounds
@@ -65,7 +71,7 @@ function Records100m({ data }) {
         .data(data)
         .join('circle')
         .attr('cx', 0)
-        .attr('cy', (d, i) => 35 + i * 44)
+        .attr('cy', (d, i) => 45 + i * 44)
         .attr('r', 10)
         .style('fill', (d) =>
           d.competitor === 'Usain Bolt'
@@ -79,7 +85,7 @@ function Records100m({ data }) {
         .data(data)
         .join('rect')
         .attr('x', 0)
-        .attr('y', (d, i) => 30 + i * 44)
+        .attr('y', (d, i) => 40 + i * 44)
         .attr('width', 0)
         .attr('height', 10)
         .style('fill', (d) =>
@@ -95,7 +101,7 @@ function Records100m({ data }) {
         .data(data)
         .join('text')
         .attr('x', 0)
-        .attr('y', (d, i) => 71 + i * 44)
+        .attr('y', (d, i) => 81 + i * 44)
         .text(yAccessor)
         .attr('text-anchor', 'right')
         .style('fill', (d) =>
@@ -114,7 +120,7 @@ function Records100m({ data }) {
         .data(data)
         .join('text')
         .attr('x', dimensions.boundedWidth + 20)
-        .attr('y', (d, i) => 31 + i * 44)
+        .attr('y', (d, i) => 51 + i * 44)
         .text(timeAccessor)
         .attr('text-anchor', 'left')
         .attr('opacity', 0)
@@ -232,9 +238,6 @@ function Records100m({ data }) {
         <p>Here are the eight fastest 100m times ever run</p>
       </div>
 
-      {/* <button>Replay the worlwd record</button>
-      <button>Twice the speed</button>
-      <button>Reset</button> */}
       <svg
         className={styles.recordAnimation}
         // appending to the svg element

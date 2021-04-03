@@ -115,7 +115,7 @@ function MedalsByGamesUS({ data }) {
         .attr('x2', dimensions.boundedWidth)
         .attr('y1', yScale(mean))
         .attr('y2', yScale(mean))
-        .attr('stroke', '#333')
+        .attr('stroke', 'hsla(8, 72%, 72%, 1)')
         .attr('stroke-dasharray', '2px 2px');
 
       const meanLabel = bounds
@@ -123,11 +123,12 @@ function MedalsByGamesUS({ data }) {
         .selectAll('text')
         .data(countryAccessor)
         .join('text')
-        .attr('x', dimensions.boundedWidth - 110)
+        .attr('x', dimensions.boundedWidth - 140)
         .attr('y', yScale(mean) - 7)
-        .text('average medals')
+        .text(`Average medals ${Math.floor(mean)}`)
         .attr('text-anchor', 'right')
-        .attr('font-size', '13px');
+        .attr('font-size', '13px')
+        .attr('fill', 'hsla(8, 72%, 72%, 1)');
 
       const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
 

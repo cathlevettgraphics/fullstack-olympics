@@ -105,7 +105,6 @@ function MedalsByGamesGER({ data }) {
         .attr('text-anchor', 'middle')
         .attr('font-family', 'JetBrains Mono');
 
-      // draw average medals
       const meanLine = bounds
         .append('g')
         .selectAll('line')
@@ -115,8 +114,20 @@ function MedalsByGamesGER({ data }) {
         .attr('x2', dimensions.boundedWidth)
         .attr('y1', yScale(mean))
         .attr('y2', yScale(mean))
-        .attr('stroke', '#333')
+        .attr('stroke', 'hsla(8, 72%, 72%, 1)')
         .attr('stroke-dasharray', '2px 2px');
+
+      const meanLabel = bounds
+        .append('g')
+        .selectAll('text')
+        .data(countryAccessor)
+        .join('text')
+        .attr('x', dimensions.boundedWidth - 85)
+        .attr('y', yScale(mean) - 7)
+        .text(`Average ${Math.floor(mean)}`)
+        .attr('text-anchor', 'right')
+        .attr('font-size', '13px')
+        .attr('fill', 'hsla(8, 72%, 72%, 1)');
 
       const xAxisGenerator = d3.axisBottom().scale(xScale).tickSizeOuter(0);
       const xAxis = bounds
