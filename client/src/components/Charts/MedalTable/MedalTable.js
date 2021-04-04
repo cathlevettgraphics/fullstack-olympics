@@ -72,7 +72,7 @@ function MedalTable({ data }) {
         .data(data)
         .join('text')
         .attr('x', 0)
-        .attr('y', (d, i) => 18 + i * 60)
+        .attr('y', (d, i) => 20 + i * 60)
         .text(yAccessor)
         .attr('text-anchor', 'right');
 
@@ -100,7 +100,7 @@ function MedalTable({ data }) {
         .attr('cy', (d, i) => 14 + i * 60)
         .attr('r', (d) => circScale(d.gold))
         .attr('fill', 'hsla(48, 81%, 75%, 1)')
-        .style('opacity', '.5');
+        .style('opacity', '.6');
 
       // Gold medals text
       const goldText = medalsTable
@@ -109,7 +109,7 @@ function MedalTable({ data }) {
         .data(data)
         .join('text')
         .attr('x', 165)
-        .attr('y', (d, i) => 18 + i * 60)
+        .attr('y', (d, i) => 20 + i * 60)
         .text(goldMedals)
         .style('text-anchor', 'middle');
 
@@ -123,7 +123,7 @@ function MedalTable({ data }) {
         .attr('cy', (d, i) => 14 + i * 60)
         .attr('r', (d) => circScale(d.silver))
         .attr('fill', ' hsla(206, 16%, 65%, 1)')
-        .style('opacity', '.4');
+        .style('opacity', '.5');
 
       // Silver medals
       const silverText = medalsTable
@@ -132,7 +132,7 @@ function MedalTable({ data }) {
         .data(data)
         .join('text')
         .attr('x', 300)
-        .attr('y', (d, i) => 18 + i * 60)
+        .attr('y', (d, i) => 20 + i * 60)
         .text(silverMedals)
         .style('text-anchor', 'middle');
 
@@ -146,7 +146,7 @@ function MedalTable({ data }) {
         .attr('cy', (d, i) => 14 + i * 60)
         .attr('r', (d) => circScale(d.bronze))
         .attr('fill', ' hsla(29, 76%, 74%, 1)')
-        .style('opacity', '.4');
+        .style('opacity', '.6');
 
       const bronzeText = medalsTable
         .append('g')
@@ -154,7 +154,7 @@ function MedalTable({ data }) {
         .data(data)
         .join('text')
         .attr('x', 435)
-        .attr('y', (d, i) => 18 + i * 60)
+        .attr('y', (d, i) => 20 + i * 60)
         .text(bronzeMedals)
         .style('text-anchor', 'middle');
 
@@ -164,7 +164,7 @@ function MedalTable({ data }) {
         .data(data)
         .join('text')
         .attr('x', 550)
-        .attr('y', (d, i) => 18 + i * 60)
+        .attr('y', (d, i) => 20 + i * 60)
         .text(totalMedals)
         .style('text-anchor', 'middle');
     },
@@ -179,6 +179,7 @@ function MedalTable({ data }) {
           However unreal it may seem, we are connected, you and I. We're on the
           same curve, just on opposite ends.
         </p>
+        <p>The top 20 medal winning nations of all time</p>
       </div>
 
       <svg

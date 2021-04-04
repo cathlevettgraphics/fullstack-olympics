@@ -110,7 +110,7 @@ function MedalsByCountry({ data, shapes }) {
         .attr('y', -23)
         .attr('x', -60)
         .attr('class', 'key-title')
-        .text('olympic medals')
+        .text('Olympic medals')
         .attr('font-size', '16px')
         .attr('font-family', 'JetBrains Mono');
 
@@ -119,7 +119,7 @@ function MedalsByCountry({ data, shapes }) {
         .attr('y', 0)
         .attr('x', -60)
         .attr('class', 'key-byline')
-        .text('all time summer games')
+        .text('All time summer games')
         .attr('font-size', '13px')
         .attr('font-family', 'JetBrains Mono');
 
@@ -243,6 +243,7 @@ function MedalsByCountry({ data, shapes }) {
           width: '275px',
           textAlign: 'center',
           backgroundColor: '#fff',
+          opacity: '0',
         }}
       >
         <div className="tooltipCountry" id="country"></div>

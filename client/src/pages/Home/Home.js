@@ -60,7 +60,7 @@ function Home({ play }) {
         <section className={styles.medalsByGames}>
           <div className={styles.introText}>
             <h2 className={styles.subhead}>
-              How have the top medaling nations performed over time?
+              How have the top medaling nations performed in the modern games?
             </h2>
             <p className={styles.strap}>
               Well, the way they make shows is, they make one show. That show's
