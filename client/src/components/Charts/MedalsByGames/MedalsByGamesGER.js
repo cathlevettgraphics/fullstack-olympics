@@ -9,18 +9,33 @@ function MedalsByGamesGER({ data }) {
       // todo – loop through and create new charts for these countries
       // const countries = ['US', 'Russia', 'Germany', 'UK', 'France', 'Italy'];
 
-      // create dimensions
-      let dimensions = {
-        width: 620,
-        // width: window.innerWidth,
-        height: 300,
-        margin: {
-          top: 20,
-          right: 0,
-          bottom: 40,
-          left: 0,
-        },
-      };
+      // create dimensions for mobile (375px) and desktop (620px)
+      let dimensions;
+
+      if (window.innerWidth >= 620) {
+        dimensions = {
+          width: 620,
+          // width: window.innerWidth,
+          height: 300,
+          margin: {
+            top: 20,
+            right: 0,
+            bottom: 40,
+            left: 0,
+          },
+        };
+      } else {
+        dimensions = {
+          width: window.innerWidth * 0.95,
+          height: 300,
+          margin: {
+            top: 20,
+            right: 0,
+            bottom: 40,
+            left: 0,
+          },
+        };
+      }
 
       // set size of bounds
       dimensions.boundedWidth =
@@ -135,7 +150,7 @@ function MedalsByGamesGER({ data }) {
         .call(xAxisGenerator)
         .style('transform', `translateY(${dimensions.boundedHeight}px)`)
         .attr('font-family', 'JetBrains Mono')
-        .attr('font-size', '13px');
+        .attr('font-size', '11px');
 
       const yAxisGenerator = d3.axisLeft().scale(yScale).tickSizeOuter(0);
       // const yAxis = bounds.append('g').call(yAxisGenerator);

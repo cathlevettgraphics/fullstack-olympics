@@ -7,16 +7,44 @@ function Records100m({ data }) {
   const ref = useD3(
     (svg) => {
       // create dimensions
-      let dimensions = {
-        width: 1024,
-        height: 430,
-        margin: {
-          top: 30,
-          right: 100,
-          bottom: 20,
-          left: 135,
-        },
-      };
+      // let dimensions = {
+      //   width: 1024,
+      //   height: 430,
+      //   margin: {
+      //     top: 30,
+      //     right: 100,
+      //     bottom: 20,
+      //     left: 135,
+      //   },
+      // };
+
+      // create dimensions for mobile (375px) and desktop (620px)
+      let dimensions;
+
+      if (window.innerWidth >= 620) {
+        dimensions = {
+          width: 1024,
+          // width: window.innerWidth,
+          height: 430,
+          margin: {
+            top: 30,
+            right: 110,
+            bottom: 20,
+            left: 135,
+          },
+        };
+      } else {
+        dimensions = {
+          width: window.innerWidth * 0.95,
+          height: 430,
+          margin: {
+            top: 30,
+            right: 60,
+            bottom: 20,
+            left: 135,
+          },
+        };
+      }
 
       // set size of bounds
       dimensions.boundedWidth =
@@ -50,11 +78,24 @@ function Records100m({ data }) {
         .range([0, dimensions.boundedWidth])
         .nice();
 
-      const xAxisGenerator = d3
-        .axisBottom()
-        .scale(xScale)
-        // .tickSizeOuter(0)
-        .tickSize(-dimensions.boundedHeight + 20);
+      let xAxisGenerator;
+
+      if (window.innerWidth >= 620) {
+        xAxisGenerator = d3
+          .axisBottom()
+          .scale(xScale)
+          .tickSizeOuter(0)
+          .tickSize(-dimensions.boundedHeight + 20);
+      } else {
+        xAxisGenerator = d3
+          .axisBottom()
+          .scale(xScale)
+          .tickFormat((interval, i) => {
+            return i % 2 !== 0 ? ' ' : interval;
+          })
+          .tickSizeOuter(0)
+          .tickSize(-dimensions.boundedHeight + 20);
+      }
 
       const xAxis = bounds
         .append('g')
@@ -136,13 +177,13 @@ function Records100m({ data }) {
       // todo – render buttons in react not d3
       // Make buttons
       const makeButton = (xPos, width) => {
-        const button = bounds
+        const button = animated100m
           .append('g')
           .selectAll('rect')
           .data(data)
           .join('rect')
           .attr('x', xPos)
-          .attr('y', -30)
+          .attr('y', 0)
           .attr('width', width)
           .attr('height', 40)
           .style('rx', 20)
@@ -153,13 +194,13 @@ function Records100m({ data }) {
       };
       // Make button text
       const makeButtonText = (xPos, textContent) => {
-        const buttonText = bounds
+        const buttonText = animated100m
           .append('g')
           .selectAll('text')
           .data(data)
           .join('text')
           .attr('x', xPos)
-          .attr('y', -5)
+          .attr('y', 25)
           .text(textContent)
           .style('fill', '#333')
           .style('text-anchor', 'middle')
@@ -213,8 +254,8 @@ function Records100m({ data }) {
       resetAnimation(resetBtn);
 
       // Play twice as fast button
-      const playBtnTwiceAsFast = makeButton(220, 160);
-      const playBtnTwiceAsFastText = makeButtonText(300, 'Twice as fast');
+      const playBtnTwiceAsFast = makeButton(220, 100);
+      const playBtnTwiceAsFastText = makeButtonText(270, '2x fast');
       const playRecordAnimation2xText = playAnimation(
         playBtnTwiceAsFastText,
         2,
