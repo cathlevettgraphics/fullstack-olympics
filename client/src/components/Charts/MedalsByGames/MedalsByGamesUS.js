@@ -156,19 +156,23 @@ function MedalsByGamesUS({ data }) {
       <p className={styles.countryMedalCount}>
         <span className={styles.countryName}>US</span> 2,477 medals since 1976
       </p>
-      <svg
-        className="TEST"
-        // appending to the svg element
-        ref={ref}
-        style={{
-          height: 300,
-          width: '100%',
-          marginRight: '0px',
-          marginLeft: '0px',
-        }}
-      >
-        <g className="usChart" />
-      </svg>
+      {/* Fallback of no data available */}
+      {data.length ? (
+        <svg
+          // appending to the svg element
+          ref={ref}
+          style={{
+            height: 300,
+            width: '100%',
+            marginRight: '0px',
+            marginLeft: '0px',
+          }}
+        >
+          <g className="usChart" />
+        </svg>
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }

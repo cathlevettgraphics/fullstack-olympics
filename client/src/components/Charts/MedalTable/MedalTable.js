@@ -8,7 +8,7 @@ import { utcFormat } from 'd3';
 function MedalTable({ data }) {
   const ref = useD3(
     (svg) => {
-      console.log('all time medals', data);
+      // console.log('all time medals', data);
 
       // create dimensions
       let dimensions = {
@@ -182,23 +182,28 @@ function MedalTable({ data }) {
         <p>The top 20 medal winning nations of all time</p>
       </div>
 
-      <svg
-        className={styles.table}
-        // appending to the svg element
-        ref={ref}
-        style={{
-          height: 950,
-          width: '100%',
-          marginRight: '0px',
-          marginLeft: '0px',
-        }}
-      >
-        <g className="medalsTable" />
-        <g className="bounds" />
-        <g className="x-axis" />
-        <g className="y-axis" />
-        <g className="text" />
-      </svg>
+      {/* fallback if no data availabe */}
+      {data.length ? (
+        <svg
+          className={styles.table}
+          // appending to the svg element
+          ref={ref}
+          style={{
+            height: 950,
+            width: '100%',
+            marginRight: '0px',
+            marginLeft: '0px',
+          }}
+        >
+          <g className="medalsTable" />
+          <g className="bounds" />
+          <g className="x-axis" />
+          <g className="y-axis" />
+          <g className="text" />
+        </svg>
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }

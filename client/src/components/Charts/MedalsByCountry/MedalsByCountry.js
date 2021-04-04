@@ -222,35 +222,44 @@ function MedalsByCountry({ data, shapes }) {
         </p>
         <p>Hover over the map to explore</p>
       </div>
-      <svg
-        className={styles.worldMap}
-        // appending to the svg element
-        ref={ref}
-        style={{
-          height: 450,
-          width: '100%',
-          marginRight: '0px',
-          marginLeft: '0px',
-        }}
-      >
-        <g className="map" />
-      </svg>
-      <div
-        className="tooltip"
-        style={{
-          border: '1px solid black',
-          padding: '10px',
-          width: '275px',
-          textAlign: 'center',
-          backgroundColor: '#fff',
-          opacity: '0',
-        }}
-      >
-        <div className="tooltipCountry" id="country"></div>
-        <div className="tooltipValue">
-          <span className="value"></span> medals
+
+      {/* fallback if no data available */}
+
+      {data.length ? (
+        <div>
+          <svg
+            className={styles.worldMap}
+            // appending to the svg element
+            ref={ref}
+            style={{
+              height: 450,
+              width: '100%',
+              marginRight: '0px',
+              marginLeft: '0px',
+            }}
+          >
+            <g className="map" />
+          </svg>
+          <div
+            className="tooltip"
+            style={{
+              border: '1px solid black',
+              padding: '10px',
+              width: '275px',
+              textAlign: 'center',
+              backgroundColor: '#fff',
+              opacity: '0',
+            }}
+          >
+            <div className="tooltipCountry" id="country"></div>
+            <div className="tooltipValue">
+              <span className="value"></span> medals
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }

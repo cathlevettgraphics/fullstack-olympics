@@ -155,22 +155,28 @@ function MedalsByGamesRUS({ data }) {
         <span className={styles.countryName}>Russia</span> 2,341 medals since
         1976
       </p>
-      <svg
-        // appending to the svg element
-        ref={ref}
-        style={{
-          height: 300,
-          width: '100%',
-          marginRight: '0px',
-          marginLeft: '0px',
-        }}
-      >
-        <g className="russiaChart" />
-        <g className="bounds" />
-        <g className="x-axis" />
-        <g className="y-axis" />
-        <g className="text" />
-      </svg>
+
+      {/* Fallback if no data */}
+      {data.length ? (
+        <svg
+          // appending to the svg element
+          ref={ref}
+          style={{
+            height: 300,
+            width: '100%',
+            marginRight: '0px',
+            marginLeft: '0px',
+          }}
+        >
+          <g className="russiaChart" />
+          <g className="bounds" />
+          <g className="x-axis" />
+          <g className="y-axis" />
+          <g className="text" />
+        </svg>
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }

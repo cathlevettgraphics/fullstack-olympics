@@ -238,23 +238,29 @@ function Records100m({ data }) {
         <p>Here are the eight fastest 100m times ever run</p>
       </div>
 
-      <svg
-        className={styles.recordAnimation}
-        // appending to the svg element
-        ref={ref}
-        style={{
-          height: 430,
-          width: '100%',
-          marginRight: '0px',
-          marginLeft: '0px',
-        }}
-      >
-        <g className="animated100m" />
-        <g className="bounds" />
-        <g className="x-axis" />
-        <g className="y-axis" />
-        <g className="text" />
-      </svg>
+      {/* Fallback if no data */}
+
+      {data.length ? (
+        <svg
+          className={styles.recordAnimation}
+          // appending to the svg element
+          ref={ref}
+          style={{
+            height: 430,
+            width: '100%',
+            marginRight: '0px',
+            marginLeft: '0px',
+          }}
+        >
+          <g className="animated100m" />
+          <g className="bounds" />
+          <g className="x-axis" />
+          <g className="y-axis" />
+          <g className="text" />
+        </svg>
+      ) : (
+        <p>No data available</p>
+      )}
     </div>
   );
 }
