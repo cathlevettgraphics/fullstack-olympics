@@ -12,13 +12,14 @@
   width: 95%;
   margin: 0 auto;
   margin-block-end: 30px;
-  /* padding-block-end: 30px; */
+  padding-block-end: 30px;
   border-bottom: 1px dashed var(--cadet-grey);
 }
 
 @media (min-width: 961px) {
   .medalContainer {
     max-inline-size: 1024px;
+    padding-block-end: 0px;
   }
 }
 
@@ -38,5 +39,5 @@
 }
 
 .worldMap {
-  margin-block-end: 0px;
+  /* border: 1px solid #000; */
 }

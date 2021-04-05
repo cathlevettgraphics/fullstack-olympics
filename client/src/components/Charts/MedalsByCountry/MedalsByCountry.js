@@ -11,18 +11,32 @@ function MedalsByCountry({ data, shapes }) {
       const countryIdAccessor = (d) => d.properties['ADM0_A3_IS'];
       const countryShapes = shapes;
 
-      // create dimensions
-      let dimensions = {
-        width: 1024,
-        // width: window.innerWidth * 0.9,
-        height: 450,
-        margin: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-        },
-      };
+      // create dimensions for mobile (375px) and desktop (620px)
+      let dimensions;
+
+      if (window.innerWidth >= 620) {
+        dimensions = {
+          width: 1024,
+          height: 450,
+          margin: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+          },
+        };
+      } else {
+        dimensions = {
+          width: window.innerWidth * 1.1,
+          height: 270,
+          margin: {
+            top: 80,
+            right: 0,
+            bottom: 0,
+            left: 0,
+          },
+        };
+      }
 
       // calculate total width
       dimensions.boundedWidth =
@@ -52,13 +66,23 @@ function MedalsByCountry({ data, shapes }) {
         .attr('height', dimensions.height);
 
       // draw bounds for chart
-      const bounds = map
-        .append('g')
-        .style(
-          'transform',
-          `translate( ${dimensions.margin.left}px, ${dimensions.margin.top}px)`,
-        );
-
+      let bounds;
+      if (window.innerWidth >= 620) {
+        bounds = map
+          .append('g')
+          .style(
+            'transform',
+            `translate( ${dimensions.margin.left}px, ${dimensions.margin.top}px)`,
+          );
+      } else {
+        //! mobile
+        bounds = map
+          .append('g')
+          .style(
+            'transform',
+            `translate( ${-40}px, ${dimensions.margin.top}px)`,
+          );
+      }
       // start –  cloropleth map
       // filter the data we need
       let totalMedals = {};
@@ -101,110 +125,166 @@ function MedalsByCountry({ data, shapes }) {
         });
 
       // create legend
-      const keyGroup = map
-        .append('g')
-        .attr('transform', `translate(${70}, ${dimensions.boundedHeight / 2})`);
+      let keyGroup;
+      if (window.innerWidth >= 620) {
+        // desktop
+        keyGroup = map
+          .append('g')
+          .attr(
+            'transform',
+            `translate(${70}, ${dimensions.boundedHeight / 2})`,
+          );
 
-      const keyTitle = keyGroup
-        .append('text')
-        .attr('y', -23)
-        .attr('x', -60)
-        .attr('class', 'key-title')
-        .text('Olympic medals')
-        .attr('font-size', '16px')
-        .attr('font-family', 'JetBrains Mono');
+        const keyTitle = keyGroup
+          .append('text')
+          .attr('y', -23)
+          .attr('x', -60)
+          .attr('class', 'key-title')
+          .text('Olympic medals')
+          .attr('font-size', '16px')
+          .attr('font-family', 'JetBrains Mono');
 
-      const keyline = keyGroup
-        .append('text')
-        .attr('y', 0)
-        .attr('x', -60)
-        .attr('class', 'key-byline')
-        .text('All time summer games')
-        .attr('font-size', '13px')
-        .attr('font-family', 'JetBrains Mono');
+        const keyline = keyGroup
+          .append('text')
+          .attr('y', 0)
+          .attr('x', -60)
+          .attr('class', 'key-byline')
+          .text('All time summer games')
+          .attr('font-size', '13px')
+          .attr('font-family', 'JetBrains Mono');
 
-      // BUCKETS SCALE BAR
-      const keyScale = keyGroup.append('g');
-      const keys = ['500', '1000', '1500', '2000', '2500'];
-      const keyLabels = ['under 500', '500', '1,000', '1,500', '> 2,000'];
+        // BUCKETS SCALE BAR
+        const keyScale = keyGroup.append('g');
+        const keys = ['500', '1000', '1500', '2000', '2500'];
+        const keyLabels = ['under 500', '500', '1,000', '1,500', '> 2,000'];
 
-      // Add one dot in the legend for each bucket
-      keyScale
-        .selectAll('keyDots')
-        .data(keys)
-        .enter()
-        .append('circle')
-        .attr('cx', -50)
-        .attr('cy', (d, i) => 30 + i * 25) // 32 is first dot. 25 is the distance between
-        .attr('r', 7)
-        .style('fill', (d) => colorScale(d));
+        // Add one dot in the legend for each bucket
+        keyScale
+          .selectAll('keyDots')
+          .data(keys)
+          .enter()
+          .append('circle')
+          .attr('cx', -50)
+          .attr('cy', (d, i) => 30 + i * 25) // 32 is first dot. 25 is the distance between
+          .attr('r', 7)
+          .style('fill', (d) => colorScale(d));
 
-      keyScale
-        .selectAll('keyLabels')
-        .data(keyLabels)
-        .enter()
-        .append('text')
-        .attr('x', -30)
-        .attr('y', (d, i) => 32 + i * 25) // 32 is first dot. 25 is the distance between
-        .style('fill', '#333')
-        .text((d) => d)
-        .attr('font-size', '13px')
-        .attr('font-family', 'JetBrains Mono')
-        .style('alignment-baseline', 'middle')
-        .attr('text-anchor', 'left');
+        keyScale
+          .selectAll('keyLabels')
+          .data(keyLabels)
+          .enter()
+          .append('text')
+          .attr('x', -30)
+          .attr('y', (d, i) => 32 + i * 25) // 32 is first dot. 25 is the distance between
+          .style('fill', '#333')
+          .text((d) => d)
+          .attr('font-size', '13px')
+          .attr('font-family', 'JetBrains Mono')
+          .style('alignment-baseline', 'middle')
+          .attr('text-anchor', 'left');
+      } else {
+        // !mobile
 
-      // Add numbers
-      // todo – This is throwing an error in console
+        keyGroup = map.append('g').attr('transform', `translate(${70}, ${40})`);
+
+        const keyTitle = keyGroup
+          .append('text')
+          .attr('y', -23)
+          .attr('x', -70)
+          .attr('class', 'key-title')
+          .text('Olympic medals, summer games')
+          .attr('font-size', '16px')
+          .attr('font-family', 'JetBrains Mono');
+
+        // BUCKETS SCALE BAR
+        const keyScale = keyGroup.append('g');
+        const keys = ['500', '1000', '1500', '2000', '2500'];
+        const keyLabels = ['<500', '500', '1,000', '1,500', '>2,000'];
+
+        // Add one dot in the legend for each bucket
+        keyScale
+          .selectAll('keyDots')
+          .data(keys)
+          .enter()
+          .append('circle')
+          .attr('cx', (d, i) => -60 + i * 65)
+          .attr('cy', 0) // 32 is first dot. 25 is the distance between
+          .attr('r', 7)
+          .style('fill', (d) => colorScale(d));
+
+        keyScale
+          .selectAll('keyLabels')
+          .data(keyLabels)
+          .enter()
+          .append('text')
+          .attr('x', (d, i) => -50 + i * 65)
+          .attr('y', 1) // 32 is first dot. 25 is the distance between
+          .style('fill', '#333')
+          .text((d) => d)
+          .attr('font-size', '13px')
+          .attr('font-family', 'JetBrains Mono')
+          .style('alignment-baseline', 'middle')
+          .attr('text-anchor', 'left');
+      }
+
+      /*
       const medalTotalText = bounds
         .append('g')
         .selectAll('text')
-        .data(data)
+        .data(countryShapes.features)
         .enter()
         .append('text')
-        .attr('x', (d) => projection([d.longitude, d.latitude])[0])
-        .attr('y', (d) => projection([d.longitude, d.latitude])[1])
+        .attr('x', (d) => pathGenerator.centroid(d)[0])
+        .attr('y', (d) => pathGenerator.centroid(d)[1])
+        // .attr('x', (d) => projection([d.longitude, d.latitude])[0])
+        // .attr('y', (d) => projection([d.longitude, d.latitude])[1])
         .attr('dy', 5)
-        .text((d) => {
-          if (d.total > 300) {
-            const format = d3.format(',');
-            return format(d.total);
-          }
-        })
+        // .text((d) => {
+        //   if (d.total > 300) {
+        //     const format = d3.format(',');
+        //     return format(d.total);
+        //   }
+        // })
         .attr('fill', (d) => (d.total > 2000 ? '#fff' : '#333'))
         .attr('text-anchor', 'middle')
         .attr('font-size', '13px')
         .attr('font-family', 'JetBrains Mono');
+        */
 
       // end –  cloropleth map
 
-      // Set interaction
-      const tooltip = d3.select('.tooltip');
+      // ! Set interaction
+      let tooltip = d3.select('.tooltip');
 
-      countries.on('mouseenter', onMouseEnter).on('mouseleave', onMouseLeave);
+      if (window.innerWidth >= 620) {
+        countries.on('mouseenter', onMouseEnter).on('mouseleave', onMouseLeave);
 
-      function onMouseEnter(e, datum) {
-        tooltip.style('opacity', 1);
+        function onMouseEnter(e, datum) {
+          tooltip.style('opacity', 1);
 
-        const metricValues = totalMedals[countryIdAccessor(datum)];
-        tooltip.select('.tooltipCountry').text(countryNameAccessor(datum));
-        tooltip.select('.value').text(`${d3.format(',')(metricValues || 0)}`);
+          const metricValues = totalMedals[countryIdAccessor(datum)];
+          tooltip.select('.tooltipCountry').text(countryNameAccessor(datum));
+          tooltip.select('.value').text(`${d3.format(',')(metricValues || 0)}`);
 
-        // Get country centroids and position tooltip
-        const [centerX, centerY] = pathGenerator.centroid(datum);
-        const x = centerX;
-        const y = centerY + dimensions.margin.top;
+          // Get country centroids and position tooltip
+          const [centerX, centerY] = pathGenerator.centroid(datum);
+          const x = centerX;
+          const y = centerY + dimensions.margin.top;
 
-        tooltip.style(
-          'transform',
-          `translate(` +
-            `calc( -50% + ${x}px),` +
-            `calc( ${y}px - 400px)` +
-            `)`,
-        );
-      }
+          tooltip.style(
+            'transform',
+            `translate(` +
+              `calc( -50% + ${x}px),` +
+              `calc( ${y}px - 400px)` +
+              `)`,
+          );
+        }
 
-      function onMouseLeave() {
-        tooltip.style('opacity', 0);
+        function onMouseLeave(e) {
+          tooltip.style('opacity', 0);
+        }
+      } else {
+        tooltip.style('display', 'none');
       }
     },
     [data.length, shapes],
@@ -220,26 +300,42 @@ function MedalsByCountry({ data, shapes }) {
           Some pilots get picked and become television programs. Some don't,
           become nothing. She starred in one of the ones that became nothing.
         </p>
-        <p>Hover over the map to explore</p>
+        {window.innerWidth >= 620 ? <p>Hover over the map to explore</p> : null}
       </div>
 
       {/* fallback if no data available */}
 
       {data.length ? (
         <div>
-          <svg
-            className={styles.worldMap}
-            // appending to the svg element
-            ref={ref}
-            style={{
-              height: 450,
-              width: '100%',
-              marginRight: '0px',
-              marginLeft: '0px',
-            }}
-          >
-            <g className="map" />
-          </svg>
+          {window.innerWidth >= 620 ? (
+            <svg
+              className={styles.worldMap}
+              // appending to the svg element
+              ref={ref}
+              style={{
+                height: 450,
+                width: '100%',
+                marginRight: '0px',
+                marginLeft: '0px',
+              }}
+            >
+              <g className="map" />
+            </svg>
+          ) : (
+            <svg
+              className={styles.worldMap}
+              // appending to the svg element
+              ref={ref}
+              style={{
+                height: 270,
+                width: '100%',
+                marginRight: '0px',
+                marginLeft: '0px',
+              }}
+            >
+              <g className="map" />
+            </svg>
+          )}
 
           <div
             className="tooltip"
