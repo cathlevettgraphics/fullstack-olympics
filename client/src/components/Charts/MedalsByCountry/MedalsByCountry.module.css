@@ -12,7 +12,7 @@
   width: 95%;
   margin: 0 auto;
   margin-block-end: 30px;
-  padding-block-end: 30px;
+  /* padding-block-end: 30px; */
   border-bottom: 1px dashed var(--cadet-grey);
 }
 
@@ -35,4 +35,8 @@
 
 .strap {
   font-size: 1.6rem;
+}
+
+.worldMap {
+  margin-block-end: 0px;
 }

@@ -11,16 +11,44 @@ function MedalTable({ data }) {
       // console.log('all time medals', data);
 
       // create dimensions
-      let dimensions = {
-        width: 620,
-        height: 950,
-        margin: {
-          top: 0,
-          right: 100,
-          bottom: 40,
-          left: 135,
-        },
-      };
+      // let dimensions = {
+      //   width: 620,
+      //   height: 950,
+      //   margin: {
+      //     top: 0,
+      //     right: 100,
+      //     bottom: 40,
+      //     left: 135,
+      //   },
+      // };
+
+      // create dimensions for mobile (375px) and desktop (620px)
+      let dimensions;
+
+      if (window.innerWidth >= 620) {
+        dimensions = {
+          width: 620,
+          // width: window.innerWidth,
+          height: 950,
+          margin: {
+            top: 0,
+            right: 100,
+            bottom: 40,
+            left: 135,
+          },
+        };
+      } else {
+        dimensions = {
+          width: window.innerWidth * 0.95,
+          height: 950,
+          margin: {
+            top: 0,
+            right: 100,
+            bottom: 40,
+            left: 135,
+          },
+        };
+      }
 
       // set size of bounds
       dimensions.boundedWidth =
@@ -65,108 +93,205 @@ function MedalTable({ data }) {
       const maxCircValue = 1022;
       const circScale = d3.scaleSqrt().domain([0, maxCircValue]).range([0, 48]);
 
-      // Country names
-      const countryText = medalsTable
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 0)
-        .attr('y', (d, i) => 20 + i * 60)
-        .text(yAccessor)
-        .attr('text-anchor', 'right');
+      if (window.innerWidth >= 620) {
+        // ! desktop
+        // Country names
+        const countryText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 0)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(yAccessor)
+          .attr('text-anchor', 'right');
 
-      // Dividing line
-      const line = medalsTable
-        .append('g')
-        .selectAll('line')
-        .data(data)
-        .join('line')
-        .attr('x1', 0)
-        .attr('y1', (d, i) => 44 + i * 60)
-        .attr('x2', 620)
-        .attr('y2', (d, i) => 44 + i * 60)
-        .style('stroke', 'hsla(206, 16%, 65%, 1)')
-        .attr('stroke-width', 1)
-        .attr('stroke-dasharray', '3, 3');
+        // Dividing line
+        const line = medalsTable
+          .append('g')
+          .selectAll('line')
+          .data(data)
+          .join('line')
+          .attr('x1', 0)
+          .attr('y1', (d, i) => 44 + i * 60)
+          .attr('x2', 620)
+          .attr('y2', (d, i) => 44 + i * 60)
+          .style('stroke', 'hsla(206, 16%, 65%, 1)')
+          .attr('stroke-width', 1)
+          .attr('stroke-dasharray', '3, 3');
 
-      // Gold medals circles
-      const goldBubble = medalsTable
-        .append('g')
-        .selectAll('circle')
-        .data(data)
-        .join('circle')
-        .attr('cx', 165)
-        .attr('cy', (d, i) => 14 + i * 60)
-        .attr('r', (d) => circScale(d.gold))
-        .attr('fill', 'hsla(48, 81%, 75%, 1)')
-        .style('opacity', '.6');
+        // Gold medals circles
+        const goldBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 165)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.gold))
+          .attr('fill', 'hsla(48, 81%, 75%, 1)')
+          .style('opacity', '.6');
 
-      // Gold medals text
-      const goldText = medalsTable
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 165)
-        .attr('y', (d, i) => 20 + i * 60)
-        .text(goldMedals)
-        .style('text-anchor', 'middle');
+        // Gold medals text
+        const goldText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 165)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(goldMedals)
+          .style('text-anchor', 'middle');
 
-      // Silver medals circles
-      const silverBubble = medalsTable
-        .append('g')
-        .selectAll('circle')
-        .data(data)
-        .join('circle')
-        .attr('cx', 300)
-        .attr('cy', (d, i) => 14 + i * 60)
-        .attr('r', (d) => circScale(d.silver))
-        .attr('fill', ' hsla(206, 16%, 65%, 1)')
-        .style('opacity', '.5');
+        // Silver medals circles
+        const silverBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 300)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.silver))
+          .attr('fill', ' hsla(206, 16%, 65%, 1)')
+          .style('opacity', '.5');
 
-      // Silver medals
-      const silverText = medalsTable
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 300)
-        .attr('y', (d, i) => 20 + i * 60)
-        .text(silverMedals)
-        .style('text-anchor', 'middle');
+        // Silver medals
+        const silverText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 300)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(silverMedals)
+          .style('text-anchor', 'middle');
 
-      // Bronze medals circles
-      const bronzeBubble = medalsTable
-        .append('g')
-        .selectAll('circle')
-        .data(data)
-        .join('circle')
-        .attr('cx', 435)
-        .attr('cy', (d, i) => 14 + i * 60)
-        .attr('r', (d) => circScale(d.bronze))
-        .attr('fill', ' hsla(29, 76%, 74%, 1)')
-        .style('opacity', '.6');
+        // Bronze medals circles
+        const bronzeBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 435)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.bronze))
+          .attr('fill', ' hsla(29, 76%, 74%, 1)')
+          .style('opacity', '.6');
 
-      const bronzeText = medalsTable
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 435)
-        .attr('y', (d, i) => 20 + i * 60)
-        .text(bronzeMedals)
-        .style('text-anchor', 'middle');
+        const bronzeText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 435)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(bronzeMedals)
+          .style('text-anchor', 'middle');
 
-      const totalText = medalsTable
-        .append('g')
-        .selectAll('text')
-        .data(data)
-        .join('text')
-        .attr('x', 550)
-        .attr('y', (d, i) => 20 + i * 60)
-        .text(totalMedals)
-        .style('text-anchor', 'middle');
+        const totalText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 550)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(totalMedals)
+          .style('text-anchor', 'middle');
+      } else {
+        // ! mobile
+        // Country names
+        const countryText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 0)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(yAccessor)
+          .attr('text-anchor', 'right');
+
+        // Dividing line
+        const line = medalsTable
+          .append('g')
+          .selectAll('line')
+          .data(data)
+          .join('line')
+          .attr('x1', 0)
+          .attr('y1', (d, i) => 44 + i * 60)
+          .attr('x2', 620)
+          .attr('y2', (d, i) => 44 + i * 60)
+          .style('stroke', 'hsla(206, 16%, 65%, 1)')
+          .attr('stroke-width', 1)
+          .attr('stroke-dasharray', '3, 3');
+
+        // Gold medals circles
+        const goldBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 120)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.gold))
+          .attr('fill', 'hsla(48, 81%, 75%, 1)')
+          .style('opacity', '.6');
+
+        // Gold medals text
+        const goldText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 120)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(goldMedals)
+          .style('text-anchor', 'middle');
+
+        // Silver medals circles
+        const silverBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 220)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.silver))
+          .attr('fill', ' hsla(206, 16%, 65%, 1)')
+          .style('opacity', '.5');
+
+        // Silver medals
+        const silverText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 220)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(silverMedals)
+          .style('text-anchor', 'middle');
+
+        // Bronze medals circles
+        const bronzeBubble = medalsTable
+          .append('g')
+          .selectAll('circle')
+          .data(data)
+          .join('circle')
+          .attr('cx', 310)
+          .attr('cy', (d, i) => 14 + i * 60)
+          .attr('r', (d) => circScale(d.bronze))
+          .attr('fill', ' hsla(29, 76%, 74%, 1)')
+          .style('opacity', '.6');
+
+        const bronzeText = medalsTable
+          .append('g')
+          .selectAll('text')
+          .data(data)
+          .join('text')
+          .attr('x', 310)
+          .attr('y', (d, i) => 20 + i * 60)
+          .text(bronzeMedals)
+          .style('text-anchor', 'middle');
+      }
     },
     [data.length],
   );

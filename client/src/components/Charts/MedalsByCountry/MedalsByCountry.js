@@ -252,7 +252,9 @@ function MedalsByCountry({ data, shapes }) {
               opacity: '0',
             }}
           >
-            <div className="tooltipCountry" id="country"></div>
+            <div className="tooltipCountry" id="country">
+              country name
+            </div>
             <div className="tooltipValue">
               <span className="value"></span> medals
             </div>
