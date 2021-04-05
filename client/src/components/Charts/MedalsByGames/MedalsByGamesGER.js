@@ -167,7 +167,7 @@ function MedalsByGamesGER({ data }) {
   return (
     <div>
       <p className={styles.countryMedalCount}>
-        <span className={styles.countryName}>Germamny</span> 1,748 medals since
+        <span className={styles.countryName}>Germany</span> 1,748 medals since
         1976
       </p>
 

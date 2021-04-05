@@ -240,6 +240,7 @@ function MedalsByCountry({ data, shapes }) {
           >
             <g className="map" />
           </svg>
+
           <div
             className="tooltip"
             style={{

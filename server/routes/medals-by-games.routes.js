@@ -8,6 +8,7 @@ const {
   removeMedalsByGames,
 } = require('./../controllers/medals-by-games.controller');
 
+
 router
   .get('/:id?', getMedalsByGames)
   .post('/', addMedalsByGames)

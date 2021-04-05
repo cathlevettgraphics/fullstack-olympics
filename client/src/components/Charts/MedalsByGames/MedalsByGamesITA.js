@@ -50,7 +50,7 @@ function MedalsByGamesITA({ data }) {
       const xAccessor = (d) => d.year;
       const yAccessor = (d) => d.total;
       const countryAccessor = data
-        .filter((d) => d.country === 'France')
+        .filter((d) => d.country === 'Italy')
         .sort((a, b) => a.year.localeCompare(b.year));
 
       // calculate average
@@ -139,7 +139,7 @@ function MedalsByGamesITA({ data }) {
         .data(countryAccessor)
         .join('text')
         .attr('x', dimensions.boundedWidth - 85)
-        .attr('y', yScale(mean) + 14)
+        .attr('y', yScale(mean) - 14)
         .text(`Average ${Math.floor(mean)}`)
         .attr('text-anchor', 'right')
         .attr('font-size', '13px')

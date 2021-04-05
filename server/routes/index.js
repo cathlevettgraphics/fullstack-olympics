@@ -1,10 +1,16 @@
 const path = require('path');
 
+// const interceptor = (req, res, next) => {
+//   console.log('hit');
+//   next();
+// };
+
 module.exports = function (app) {
   const API_ENDPOINT = '/api';
   const API_VERSION = 'v1';
   app.use(
     `${API_ENDPOINT}/${API_VERSION}/medals-by-games`,
+    // interceptor(),
     require('./medals-by-games.routes'),
   );
 

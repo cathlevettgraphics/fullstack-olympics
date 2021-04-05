@@ -5,7 +5,7 @@ function Intro() {
   return (
     <div className={styles.introContainer}>
       <h1 className={styles.headline}>Reasons to be cheerful </h1>
-      <h2 className={styles.highlight}>Tokoyo 2021</h2>
+      <h2 className={styles.highlight}>Tokyo 2021</h2>
 
       <p className={styles.strap}>
         Ahead of the opening ceremony, we take a look at some of the data behind
